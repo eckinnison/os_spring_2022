@@ -1,4 +1,4 @@
-../system/platforminit.o: ../system/platforminit.c ../include/xinu.h \
+../system/dispatch.o: ../system/dispatch.c ../include/xinu.h \
  ../include/interrupt.h ../include/stddef.h ../include/bcm2837.h \
  ../include/kernel.h ../include/conf.h ../include/stdarg.h \
  ../include/compiler.h ../include/arm.h ../include/arm-atag.h \

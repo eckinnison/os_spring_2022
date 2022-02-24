@@ -32,10 +32,35 @@ void xtrap(long *frame, int cause)
         dispatch();
         return;
     }
-
+        float* swi;
+        int c=0;
     /* TODO: Implement system calls for Xinu.
-     * 1) Recognize when cause of hardware exception is SWI opcode,
-     * 2) Find the responsible SWI opcode in memory,
+     * 1) Recognize when cause of hardware exception is SWI opcode,*/
+        if (cause == ARM_EXCEPTION_SWI){
+                swi=frame[2];
+                kprintf("\nthis is frame[15] code 0x%08X\r\n", frame[15]);
+                kprintf("this is frame[14] code 0x%08X\r\n", frame[14]);
+                kprintf("this is frame[13] code 0x%08X\r\n", frame[13]);
+                kprintf("this is frame[12] code 0x%08X\r\n", frame[12]);
+                kprintf("this is frame[11] code 0x%08X\r\n", frame[11]);
+                kprintf("this is frame[10] code 0x%08X\r\n", frame[10]);
+                kprintf("this is frame[9] code 0x%08X\r\n", frame[9]);
+                kprintf("this is frame[8] code 0x%08X\r\n", frame[8]);
+                kprintf("this is frame[7] code 0x%08X\r\n", frame[7]);
+                kprintf("this is frame[6] code 0x%08X\r\n", frame[6]);
+                kprintf("this is frame[5] code 0x%08X\r\n", frame[5]);
+                kprintf("this is frame[4] code 0x%08X\r\n", frame[4]);
+                kprintf("this is frame[3] code 0x%08X\r\n", frame[3]);
+                kprintf("this is frame[2] code 0x%08X\r\n", frame[2]);
+                kprintf("this is frame[1] code 0x%08X\r\n", frame[1]);
+                kprintf("this is frame[0] code 0x%08X\r\n", frame[0]);
+                kprintf("\n\nthis is swi version op code 0x%08X\r\n", swi);
+                kprintf("\n\nthis is val of swi 0x%08X\r\n", &swi);
+
+                return;
+               // syscall_dispatch(swi,args);
+        }
+     /* 2) Find the responsible SWI opcode in memory,
      * 3) Decode what system call was requested by examining opcode,
      * 4) Call syscall_dispatch() with the syscall number and any
      *    passed arguments, and
@@ -43,6 +68,10 @@ void xtrap(long *frame, int cause)
      *    instruction after SWI call, with return value in place.
      */
 
+   
+    
+
+      
     /* If not an IRQ or SWI, fall through to generic exception handler */
     kprintf("\r\n\r\nXINU Exception [%s]\r\n", trap_names[cause]);
 
@@ -60,6 +89,7 @@ void xtrap(long *frame, int cause)
     kprintf("[0x%08X]  r0:0x%08X   r1:0x%08X   r2:0x%08X   r3:0x%08X\r\n",
             frame + CTX_R0,
             frame[CTX_R0], frame[CTX_R1], frame[CTX_R2], frame[CTX_R3]);
+    
     while (1)
         ;                       /* forever */
 }

@@ -1,4 +1,12 @@
 /**
+ * COSC 3250 - Project 4
+ * Explain briefly the functionality of the program.
+ * @author Emma Claire Kinnison Erin Cahil
+ * Instructor Dr. Brylow
+ * TA-BOT:MAILTO emma.kinnison@marquette.edu 
+ * Collaborators: Gabbie Rohde and Jacob Deighton because I(Emma Claire) needed help
+ */
+/**
  * @file syscall_dispatch.c
  * Translate user_* functions to system calls, dispatch to proper sc_*
  * functions, and complete.
