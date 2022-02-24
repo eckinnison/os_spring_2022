@@ -18,6 +18,16 @@
 #define ARM_I_BIT 0x80          /* IRQs disabled when set to 1. */
 #define ARM_F_BIT 0x40          /* FIQs disabled when set to 1. */
 
+
+#define ARM_EXCEPTION_RESET	0
+#define ARM_EXCEPTION_UNDEFINED	1
+#define ARM_EXCEPTION_SWI	2
+#define ARM_EXCEPTION_PREFETCH	3
+#define ARM_EXCEPTION_ABORT	4
+#define ARM_EXCEPTION_IRQ	5
+#define ARM_EXCEPTION_FIQ	6
+
+
 #define CONTEXT 64             /**< context record size in bytes         */
                                /**< context record size in words         */
 #define CONTEXT_WORDS (CONTEXT / sizeof(long))

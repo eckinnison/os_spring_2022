@@ -91,23 +91,23 @@ _start:
 .balign	0x20
 .globl _vectors
 _vectors:
-	ldr pc, reset_addr    /* Reset handler */
+	ldr pc, reset_addr	  /* Reset handler */
 	ldr pc, undef_addr	  /* Undefined instruction handler */
 	ldr pc, swi_addr	  /* Software interrupt handler */
-	ldr pc, prefetch_addr /* Prefetch abort handler */
+	ldr pc, prefetch_addr	  /* Prefetch abort handler */
 	ldr pc, abort_addr	  /* Data abort handler */
-	ldr pc, reserved_addr /* Reserved */
+	ldr pc, reserved_addr	  /* Reserved */
 	ldr pc, irq_addr	  /* IRQ (Interrupt request) handler */
 	ldr pc, fiq_addr	  /* FIQ (Fast interrupt request) handler */
 
 reset_addr:     .word reset_handler
-undef_addr:     .word reset_handler
-swi_addr:       .word reset_handler
-prefetch_addr:  .word reset_handler
-abort_addr:     .word reset_handler
+undef_addr:     .word undef_handler
+swi_addr:       .word swi_handler
+prefetch_addr:  .word prefetch_handler
+abort_addr:     .word abort_handler
 reserved_addr:  .word reset_handler
-irq_addr:       .word reset_handler
-fiq_addr:       .word reset_handler
+irq_addr:       .word irq_handler
+fiq_addr:       .word fiq_handler
 
 _endvectors:
 

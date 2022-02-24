@@ -16,3 +16,4 @@
 #include <bcm2837.h>
 #include <pl011.h>
 #include <version.h>
+#include <syscall.h>

@@ -1,12 +1,4 @@
 /**
- * COSC 3250 - Project 4
- * This helps us to debug our code
- * Collaborators: Gabbie Rohde, and Jacob Deighton due to partner being MIA
- * @author Emma Claire Kinnison David Santiago
- * Instructor Dr. Brylow
- * TA-BOT:MAILTO emma.kinnison@marquette.edu david.santiago@marquette.edu
- */
- /**
  * @file testcases.c
  * @provides testcases
  *
@@ -27,12 +19,8 @@ int testmain(int argc, char **argv)
     for (i = 0; i < 10; i++)
     {
         kprintf("This is process %d\r\n", currpid);
-        
 
-        //we had followed these instructions and it led to many problems, leaving comments like this in here can hurt a students chances of getting
-        //the right answer, i reccomend either removing this from tar balls or making it explicityly clear which project to do these actions on
-        /* Uncomment the resched() line for cooperative scheduling. */
-       // resched();
+        user_yield();
     }
     return 0;
 }
@@ -44,7 +32,7 @@ void testbigargs(int a, int b, int c, int d, int e, int f, int g, int h)
     kprintf("b = 0x%08X\r\n", b);
     kprintf("c = 0x%08X\r\n", c);
     kprintf("d = 0x%08X\r\n", d);
-    kprintf("e = 0x%08X\r\n", e);       //currently printing out the value of saddr[CTX_PC]=funcaddr; which is needed for part 2
+    kprintf("e = 0x%08X\r\n", e);
     kprintf("f = 0x%08X\r\n", f);
     kprintf("g = 0x%08X\r\n", g);
     kprintf("h = 0x%08X\r\n", h);
@@ -89,11 +77,12 @@ void printpcb(int pid)
  */
 void testcases(void)
 {
-    int c, pid;
+    int c;
 
-    kprintf("0) Test creation of one process\r\n");
-    kprintf("1) Test passing of many args\r\n");
-    kprintf("2) Create three processes and run them\r\n");
+    kprintf("0) Test user_none syscall\r\n");
+    kprintf("1) Test user_getc syscall\r\n");
+    kprintf("2) Test user_putc syscall\r\n");
+    kprintf("3) Create three processes that test user_yield syscall\r\n");
 
     kprintf("===TEST BEGIN===\r\n");
 
@@ -103,23 +92,28 @@ void testcases(void)
     switch (c)
     {
     case '0':
-        // Process creation testcase
-        pid = create((void *)testmain, INITSTK, "MAIN1", 2, 0, NULL);
-        printpcb(pid);
+        // Test user_none
+        kprintf("This is a test of ...");
+        user_none();
+        kprintf("user_none() syscall\r\n");
         break;
 
     case '1':
-        // Many arguments testcase
-        pid = create((void *)testbigargs, INITSTK, "MAIN1", 8,
-                     0x11111111, 0x22222222, 0x33333333, 0x44444444,
-                     0x55555555, 0x66666666, 0x77777777, 0x88888888);
-        printpcb(pid);
-        // TODO: print out stack with extra args
-        // TODO: ready(pid, RESCHED_YES);
-        ready(pid, RESCHED_YES);
+        kprintf("Enter another character through user_getc() syscall :");
+        c = user_getc(0);
+        kprintf("\r\nCharacter entered was \'%c\'\r\n", c);
         break;
 
     case '2':
+        kprintf("Echo characters until 'X': ");
+        while ((c = user_getc(0)) != 'X')
+        {
+            user_putc(0, c);
+        }
+        kprintf("\r\n");
+        break;
+
+    case '3':
         // Create three copies of a process, and let them play.
         ready(create((void *)testmain, INITSTK, "MAIN1", 2, 0, NULL),
               RESCHED_NO);
@@ -127,6 +121,8 @@ void testcases(void)
               RESCHED_NO);
         ready(create((void *)testmain, INITSTK, "MAIN3", 2, 0, NULL),
               RESCHED_YES);
+        while (numproc > 1)
+            resched();
         break;
 
     default:
