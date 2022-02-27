@@ -1,4 +1,12 @@
 /**
+ * COSC 3250 - Project 4
+ * Explain briefly the functionality of the program.
+ * @author Emma Claire Kinnison Erin Cahil
+ * Instructor Dr. Brylow
+ * TA-BOT:MAILTO emma.kinnison@marquette.edu erin.cahill@marquette.edu
+ * Collaborators: Gabbie Rohde and Jacob Deighton
+ */
+ /**
  * @file xtrap.c 
  * @provides xtrap
  *
@@ -40,7 +48,7 @@ void xtrap(long *frame, int cause)
 	int i;
 	long ocvar; //holds opcode variable
 	for(i = 0; i < 16; i++){ //should theoretically run through frames 0-15, &ing them to find opcode
-		ocvar = (frame[i] & 0xEFFFF);
+		ocvar = (frame[i] & 0xEFFFFFFF);
                 kprintf("this is the value of frame[%d]: 0x%08X\r\n", i, frame[i]); //May need to change %08X
 		kprintf("this is the opcode variable of frame[%d]: 0x%08X\r\n", i, ocvar); //May need to change %08X
 	} //Might need to move this loop into if below, can't run with putty to test if it functions correctly

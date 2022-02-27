@@ -1,4 +1,12 @@
 /**
+ * COSC 3250 - Project 4
+ * Explain briefly the functionality of the program.
+ * @author Emma Claire Kinnison Erin Cahil
+ * Instructor Dr. Brylow
+ * TA-BOT:MAILTO emma.kinnison@marquette.edu erin.cahill@marquette.edu
+ * Collaborators: Gabbie Rohde and Jacob Deighton
+ */
+ /**
  * @file irq_handler.S
  */
 /* Embedded Xinu, Copyright (C) 2013.  All rights reserved. */

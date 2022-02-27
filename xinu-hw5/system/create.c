@@ -1,10 +1,10 @@
 /**
  * COSC 3250 - Project 4
  * Explain briefly the functionality of the program.
- * @author Emma Claire Kinnison 
+ * @author Emma Claire Kinnison Erin Cahil
  * Instructor Dr. Brylow
- * TA-BOT:MAILTO emma.kinnison@marquette.edu 
- * Collaborators: Gabbie Rohde and Jacob Deighton because I(Emma Claire) needed help
+ * TA-BOT:MAILTO emma.kinnison@marquette.edu erin.cahill@marquette.edu
+ * Collaborators: Gabbie Rohde and Jacob Deighton
  */
  /**
  * @file create.c
