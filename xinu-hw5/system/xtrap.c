@@ -40,11 +40,12 @@ void xtrap(long *frame, int cause)
 	int i;
 	long ocvar; //holds opcode variable
 	for(i = 0; i < 16; i++){ //should theoretically run through frames 0-15, &ing them to find opcode
-		ocvar = (frame[i] & #FFFFFF);
-		kprintf("this is the opcode variable of frame[%i]: 0x%08X\r\n", i, ocvar); //May need to change %08X
+		ocvar = (frame[i] & 0xEFFFF);
+                kprintf("this is the value of frame[%d]: 0x%08X\r\n", i, frame[i]); //May need to change %08X
+		kprintf("this is the opcode variable of frame[%d]: 0x%08X\r\n", i, ocvar); //May need to change %08X
 	} //Might need to move this loop into if below, can't run with putty to test if it functions correctly
 
-        if (cause == ARM_EXCEPTION_SWI){
+     /*   if (cause == ARM_EXCEPTION_SWI){
                 swi=frame[2];
                 kprintf("\nthis is frame[15] code 0x%08X\r\n", frame[15]);
                 kprintf("this is frame[14] code 0x%08X\r\n", frame[14]);
@@ -65,9 +66,9 @@ void xtrap(long *frame, int cause)
                 kprintf("\n\nthis is swi version op code 0x%08X\r\n", swi);
                 kprintf("\n\nthis is val of swi 0x%08X\r\n", &swi);
 
-                return;
+               // return;
                // syscall_dispatch(swi,args);
-        }
+        }*/
      /* 2) Find the responsible SWI opcode in memory,
      * 3) Decode what system call was requested by examining opcode,
      * 4) Call syscall_dispatch() with the syscall number and any
