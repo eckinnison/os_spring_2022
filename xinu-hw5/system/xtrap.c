@@ -46,12 +46,13 @@ void xtrap(long *frame, int cause)
      * 1) Recognize when cause of hardware exception is SWI opcode,*/
 
 	int i;
-	long ocvar; //holds opcode variable
-	for(i = 0; i < 16; i++){ //should theoretically run through frames 0-15, &ing them to find opcode
-		ocvar = (frame[i] & 0xEFFFFFFF);
-                kprintf("this is the value of frame[%d]: 0x%08X\r\n", i, frame[i]); //May need to change %08X
-		kprintf("this is the opcode variable of frame[%d]: 0x%08X\r\n", i, ocvar); //May need to change %08X
-	} //Might need to move this loop into if below, can't run with putty to test if it functions correctly
+	long ocvar; // Holds opcode variable
+        kprintf("\nthis is the value of swi: 0x%08X\r\n\n", &swi);
+	for(i = 0; i < 16; i++){ // Run through frames 0-15, &ing them to find opcode
+		ocvar = (frame[i] & 0x3FFFFFFF);
+                kprintf("this is the value of frame[%d]: 0x%08X\r\n", i, frame[i]);
+		kprintf("this is the opcode variable of frame[%d]: 0x%08X\r\n", i, ocvar);
+	}
 
      /*   if (cause == ARM_EXCEPTION_SWI){
                 swi=frame[2];
