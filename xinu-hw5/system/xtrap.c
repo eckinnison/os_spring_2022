@@ -52,14 +52,17 @@ void xtrap(long *frame, int cause)
         kprintf("\nthis is the value of ARM_EXCEPTION_SWI: 0x%08X\r\n\n", ARM_EXCEPTION_SWI);   //this value is now in frame[12]
 
         // 2) Find the responsible SWI opcode in memory,
-                for(i = 0; i <23; i++){ // Run through frames 0-15, &ing them to find opcode
+                /*for(i = 0; i <23; i++){ // Run through frames 0-15, &ing them to find opcode
                         --frame;                //************************i think we need to increment the stack??
-                }
+                }*/
                 for(i = 0; i < 16; i++){ // Run through frames 0-15, &ing them to find opcode
                         ocvar = ((long)&frame[i] & 0xFFFFFF);
                         kprintf("this is the value of frame[%d]: 0x%08X\r\n", i, frame[i]);
                         kprintf("this is the opcode variable of frame[%d]: 0x%08X\r\n", i, ocvar);
                 }
+                swi= ((long)frame[14]  & 0xFFFFFF);
+                kprintf("this is the value of swi 0x%08X\r\n", swi);
+
         }
 
      /*   if (cause == ARM_EXCEPTION_SWI){
