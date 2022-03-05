@@ -43,7 +43,7 @@ void xtrap(long *frame, int cause)
         float* swi;
         int c=0;
     /* TODO: Implement system calls for Xinu.
-     * 1) Recognize when cause of hardware exception is SWI opcode,*/
+     * 1) Recognize when cause of hardware exception is SWI opcode*/
 
 	int i;
 	long ocvar; // Holds opcode variable
@@ -62,6 +62,12 @@ void xtrap(long *frame, int cause)
                         kprintf("this is the opcode variable of frame[%d]: 0x%08X\r\n", i, ocvar);
                 }
         }
+
+        //[12] = 0x0000CE74 (arm_exception_swi)
+        //[13] = 0x0000CE78 (lr?)
+        //[14] = 0x0000CE7C (swi)
+
+        //syscall_dispatch();
 
      /*   if (cause == ARM_EXCEPTION_SWI){
                 swi=frame[2];
@@ -88,6 +94,13 @@ void xtrap(long *frame, int cause)
                // syscall_dispatch(swi,args);
         }*/
      /* 3) Decode what system call was requested by examining opcode,
+
+        //Write a loop to print the requested system call?
+        
+        if(frame[12] = 0x0000CE74){ //Not sure if this is the correct frame, but need to find the specified call and call syscall_dispatch
+                syscall_dispatch(swi,args); //Something else needs to go inside this call
+        }
+
      * 4) Call syscall_dispatch() with the syscall number and any
      *    passed arguments, and
      * 5) On return from syscall_dispatch(), setup proper return to
