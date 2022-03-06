@@ -34,7 +34,7 @@
  * @return special case -- see above
  */
 ctxsw:		//look into this more
-sub sp, sp, #CTX_PC*4		//lower the stack pointer
+sub sp, sp, #64		//lower the stack pointer
 //mov r0, sp	//this is bad
 str r0, [sp, #CTX_R0*4]		//save everything
 str r1, [sp, #CTX_R1*4]
@@ -48,9 +48,8 @@ str r8, [sp, #CTX_R8*4]
 str r9, [sp, #CTX_R9*4]
 str r10, [sp, #CTX_R10*4]
 str r11, [sp, #CTX_R11*4]
-str lr, [sp, #CTX_IP*4]		//save the lr in ip, lr, and pc this was told by brylow and Taiwo
-str lr, [sp, #CTX_LR*4]
-str lr, [sp, #CTX_PC*4]	
+str lr, [sp, #CTX_PC*4]
+str lr, [sp, #CTX_LR*4]  
 
 str sp, [r0] //brylow gave this
 
@@ -68,10 +67,9 @@ ldr r8, [sp, #CTX_R8*4]
 ldr r9, [sp, #CTX_R9*4]
 ldr r10, [sp, #CTX_R10*4]
 ldr r11, [sp, #CTX_R11*4]
-ldr ip, [sp, #CTX_IP*4]
+ldr ip, [sp, #CTX_PC*4]
 ldr lr, [sp, #CTX_LR*4]
-add sp, sp, #60			//raise the sp
-ldr pc, [sp]		//put the sp in the pc so that it can resume where it left off
+add sp, sp, #64			//raise the sp
 bx ip //Taiwo gave this line of code so that it loops and doesnt crash
 
 

@@ -50,14 +50,18 @@ void xtrap(long *frame, int cause)
 	long *ocvar; // Holds opcode variable
         if (cause == ARM_EXCEPTION_SWI){
                 for(int i =0; i <= 16; i++){
-                        kprintf("this is the opcode variable of frame[%d]: 0x%08X\r\n", i, frame[i]);
+                       // kprintf("this is the opcode variable of frame[%d]: 0x%08X\r\n", i, frame[i]);
                 }
                 opcode= ((long)frame[14]);
-                kprintf("this is ocode of frame[14]: 0x%08X\r\n", *opcode); 
+               // kprintf("this is ocode of frame[14]: 0x%08X\r\n", *opcode); 
                 swi= (*opcode) & (0xFFFFFF);
-                kprintf("this is ocode of swi: 0x%06X\r\n", swi);
+                int* my_args;
+                for(int j=0; j<4;j++){
+                        my_args[j]=frame[j];
+                }
+               // kprintf("this is ocode of swi: 0x%06X\r\n", swi);
                // kprintf("this is ocode of *swi: 0x%06X\r\n", *swi);
-                syscall_dispatch(swi, frame);
+                frame[0]= syscall_dispatch(swi, *my_args);
      /* 3) Decode what system call was requested by examining opcode,
 
         //Write a loop to print the requested system call?
@@ -66,7 +70,7 @@ void xtrap(long *frame, int cause)
                 syscall_dispatch(swi,args); //Something else needs to go inside this call
         }
 
-     * 4) Call syscall_dispatch() with the syscall number and any
+    / * 4) Call syscall_dispatch() with the syscall number and any
      *    passed arguments, and
      * 5) On return from syscall_dispatch(), setup proper return to
      *    instruction after SWI call, with return value in place.
