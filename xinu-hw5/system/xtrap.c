@@ -71,7 +71,9 @@ void xtrap(long *frame, int cause)
      * 5) On return from syscall_dispatch(), setup proper return to
      *    instruction after SWI call, with return value in place.
      */
-
+        frame[14]=frame[14]+4;
+        return;
+}
    
     
 
