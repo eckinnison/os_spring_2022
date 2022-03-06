@@ -40,14 +40,16 @@ void xtrap(long *frame, int cause)
         dispatch();
         return;
     }
-        float* swi;
+        long swi;
         int c=0;
+        long* opcode;
     /* TODO: Implement system calls for Xinu.
      * 1) Recognize when cause of hardware exception is SWI opcode*/
 
 	int i;
 	long *ocvar; // Holds opcode variable
         if (cause == ARM_EXCEPTION_SWI){
+<<<<<<< HEAD
         kprintf("\nthis is the value of &swi: 0x%08X\r\n\n", &swi);     //this value is now in frame[14]
         kprintf("\nthis is the value of ARM_EXCEPTION_SWI: 0x%08X\r\n\n", ARM_EXCEPTION_SWI);   //this value is now in frame[12]
         //lr:0x3F201000, which matches the opcode variable in frame[13] (or r10 in the given code below)
@@ -60,39 +62,17 @@ void xtrap(long *frame, int cause)
                         ocvar = ((long)&frame[i] & 0xFFFFFF);
                         kprintf("this is the value of frame[%d]: 0x%08X\r\n", i, frame[i]);
                         kprintf("this is the opcode variable of frame[%d]: 0x%08X\r\n", i, *ocvar);
+=======
+                for(int i =0; i <= 16; i++){
+                        kprintf("this is the opcode variable of frame[%d]: 0x%08X\r\n", i, frame[i]);
+>>>>>>> bae84beb13ad709b9378b644cb6dab75620acbea
                 }
-        }
+                opcode= ((long)frame[14]);
+                kprintf("this is ocode of frame[14]: 0x%08X\r\n", *opcode); 
+                swi= (*opcode) & (0xFFFFFF);
+                kprintf("this is ocode of swi: 0x%06X\r\n", swi);
+               // kprintf("this is ocode of *swi: 0x%06X\r\n", *swi);
 
-        //[12] = 0x0000CE74 (arm_exception_swi)
-        //[13] = 0x0000CE78 (lr?)
-        //[14] = 0x0000CE7C (swi)
-
-        //syscall_dispatch();
-
-     /*   if (cause == ARM_EXCEPTION_SWI){
-                swi=frame[2];
-                kprintf("\nthis is frame[15] code 0x%08X\r\n", frame[15]);
-                kprintf("this is frame[14] code 0x%08X\r\n", frame[14]);
-                kprintf("this is frame[13] code 0x%08X\r\n", frame[13]);
-                kprintf("this is frame[12] code 0x%08X\r\n", frame[12]);
-                kprintf("this is frame[11] code 0x%08X\r\n", frame[11]);
-                kprintf("this is frame[10] code 0x%08X\r\n", frame[10]);
-                kprintf("this is frame[9] code 0x%08X\r\n", frame[9]);
-                kprintf("this is frame[8] code 0x%08X\r\n", frame[8]);
-                kprintf("this is frame[7] code 0x%08X\r\n", frame[7]);
-                kprintf("this is frame[6] code 0x%08X\r\n", frame[6]);
-                kprintf("this is frame[5] code 0x%08X\r\n", frame[5]);
-                kprintf("this is frame[4] code 0x%08X\r\n", frame[4]);
-                kprintf("this is frame[3] code 0x%08X\r\n", frame[3]);
-                kprintf("this is frame[2] code 0x%08X\r\n", frame[2]);
-                kprintf("this is frame[1] code 0x%08X\r\n", frame[1]);
-                kprintf("this is frame[0] code 0x%08X\r\n", frame[0]);
-                kprintf("\n\nthis is swi version op code 0x%08X\r\n", swi);
-                kprintf("\n\nthis is val of swi 0x%08X\r\n", &swi);
-
-               // return;
-               // syscall_dispatch(swi,args);
-        }*/
      /* 3) Decode what system call was requested by examining opcode,
 
         //Write a loop to print the requested system call?
