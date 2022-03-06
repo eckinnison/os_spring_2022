@@ -49,30 +49,15 @@ void xtrap(long *frame, int cause)
 	int i;
 	long *ocvar; // Holds opcode variable
         if (cause == ARM_EXCEPTION_SWI){
-<<<<<<< HEAD
-        kprintf("\nthis is the value of &swi: 0x%08X\r\n\n", &swi);     //this value is now in frame[14]
-        kprintf("\nthis is the value of ARM_EXCEPTION_SWI: 0x%08X\r\n\n", ARM_EXCEPTION_SWI);   //this value is now in frame[12]
-        //lr:0x3F201000, which matches the opcode variable in frame[13] (or r10 in the given code below)
-
-        // 2) Find the responsible SWI opcode in memory,
-          //      for(i = 0; i <23; i++){ // Run through frames 0-15, &ing them to find opcode
-          //             --frame;                //************************i think we need to increment the stack??
-          //     }
-                for(i = 0; i < 16; i++){ // Run through frames 0-15, &ing them to find opcode
-                        ocvar = ((long)&frame[i] & 0xFFFFFF);
-                        kprintf("this is the value of frame[%d]: 0x%08X\r\n", i, frame[i]);
-                        kprintf("this is the opcode variable of frame[%d]: 0x%08X\r\n", i, *ocvar);
-=======
                 for(int i =0; i <= 16; i++){
                         kprintf("this is the opcode variable of frame[%d]: 0x%08X\r\n", i, frame[i]);
->>>>>>> bae84beb13ad709b9378b644cb6dab75620acbea
                 }
                 opcode= ((long)frame[14]);
                 kprintf("this is ocode of frame[14]: 0x%08X\r\n", *opcode); 
                 swi= (*opcode) & (0xFFFFFF);
                 kprintf("this is ocode of swi: 0x%06X\r\n", swi);
                // kprintf("this is ocode of *swi: 0x%06X\r\n", *swi);
-
+        }
      /* 3) Decode what system call was requested by examining opcode,
 
         //Write a loop to print the requested system call?
