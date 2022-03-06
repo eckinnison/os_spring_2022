@@ -57,7 +57,7 @@ void xtrap(long *frame, int cause)
                 swi= (*opcode) & (0xFFFFFF);
                 kprintf("this is ocode of swi: 0x%06X\r\n", swi);
                // kprintf("this is ocode of *swi: 0x%06X\r\n", *swi);
-
+                syscall_dispatch(swi, frame);
      /* 3) Decode what system call was requested by examining opcode,
 
         //Write a loop to print the requested system call?
@@ -71,7 +71,9 @@ void xtrap(long *frame, int cause)
      * 5) On return from syscall_dispatch(), setup proper return to
      *    instruction after SWI call, with return value in place.
      */
-
+        frame[14]=frame[14]+4;
+        return;
+}
    
     
 
