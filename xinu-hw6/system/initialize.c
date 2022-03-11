@@ -51,7 +51,7 @@ void nulluser(void)
     enable();
 
     /* Call the main program */
-    main();
+    testcases();
 //      ready(create((void *) main, INITSTK, "MAIN", 2, 0, NULL), 0);
 
     /* null process has nothing else to do but cannot exit  */
