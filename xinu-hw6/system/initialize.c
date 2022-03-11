@@ -143,6 +143,7 @@ static int sysinit(void)
     ppcb->stkptr = NULL;
     ppcb->stklen = (ulong)memheap - (ulong)&_end;
     // TODO: Set the tickets field on the null process
+    ppcb->tickets = 1;
     currpid = NULLPROC;
 
     readylist = newqueue();

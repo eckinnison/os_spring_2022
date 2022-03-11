@@ -137,6 +137,9 @@ void testcases(void)
         break;
     }
 
+    //TODO: Create a new method to infinitelyl loop
+    //TODO: Create and call two or more versions of that method
+
     kprintf("\r\n===TEST END===\r\n");
     return;
 }

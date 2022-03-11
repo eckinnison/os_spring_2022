@@ -32,7 +32,8 @@ void *getstk(ulong);
  * @param nargs    number of arguments that follow
  * @return the new process id
  */
-syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
+ //TODO: Add parameter for ticket
+syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, uint tickets, ...)
 {
     ulong *saddr;               /* stack address                */
     ulong pid;                  /* stores new process id        */
@@ -62,6 +63,7 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     ppcb->state = PRSUSP; //set to suspend
     ppcb->stkptr = saddr; //strores the pointer
     ppcb->stklen = ssize; //stores the size
+    //ppcb->tickets = ...; //TODO set value
     strncpy(ppcb->name, name, PNMLEN);
 
     /* Initialize stack with accounting block. */
@@ -85,6 +87,7 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, ...)
     int *Record = saddr;
 
 	// TODO: Initialize process context.
+    //saddr[...] = ARM_MODE_SYS | ARM_F_BIT;    //Sets specific spot in stack to enable interrupts
 	// TODO:  Place arguments into activation record.
 	//        See K&R 7.3 for example using va_start, va_arg and
 	//        va_end macros for variable argument functions.

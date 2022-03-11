@@ -70,6 +70,10 @@ ldr r11, [sp, #CTX_R11*4]
 ldr ip, [sp, #CTX_PC*4]
 ldr lr, [sp, #CTX_LR*4]
 add sp, sp, #64			//raise the sp
+
+//mrs register, cpsr
+//msr cpsr_c, r0 //might need to change r0 to a different register
+
 bx ip //Taiwo gave this line of code so that it loops and doesnt crash
 
 

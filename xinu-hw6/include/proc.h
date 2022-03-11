@@ -45,7 +45,7 @@
 
 /* process table entry */
 
-// TODO: Add tickets field to the PCB
+// TODO: Add tickets field to the PCB (DONE)
 typedef struct pentry
 {
     int state;                  /**< process state: PRCURR, etc.             */
@@ -53,6 +53,7 @@ typedef struct pentry
     void *stkbase;              /**< base of run time stack                  */
     int stklen;                 /**< stack length                            */
     char name[PNMLEN];          /**< process name                            */
+    uint tickets; //Ticket variable
 } pcb;
 
 /* process initialization constants */

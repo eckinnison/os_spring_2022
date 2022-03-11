@@ -36,9 +36,12 @@ syscall resched(void)
      * Traverse through the process table to identify which proccess has the random ticket value.
      * Remove process from queue.
      * Set currpid to the new process.
+        currpid = newproc
      */
 
-    currpid = dequeue(readylist);
+    //currpid = dequeue(readylist);
+    currpid = //method created for lottery scheduling();
+    remove(currpid);
     newproc = &proctab[currpid];
     newproc->state = PRCURR;    /* mark it currently running    */
 
