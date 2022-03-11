@@ -29,6 +29,17 @@ syscall resched(void)
         enqueue(currpid, readylist);
     }
 
+        //******************************************************
+        //function given by brylow to people in class on friday only below
+        //******************************************************
+
+    for(i=0; i< NPROC; i++){
+
+        if((PRCURR == proctab[i].state) || (PRREADY == proctab[i].state)){
+            totaltickets += proctab[i].ticket
+        }
+
+    }
     /**
      * We recommend you use a helper function for the following:
      * TODO: Get the total number of tickets from all processes that are in current and ready states.
@@ -39,11 +50,11 @@ syscall resched(void)
         currpid = newproc
      */
 
-    //currpid = dequeue(readylist);
-    currpid = //method created for lottery scheduling();
-    remove(currpid);
-    newproc = &proctab[currpid];
+    currpid = dequeue(readylist);
+    newproc=&proctab[currpid];
     newproc->state = PRCURR;    /* mark it currently running    */
+    remove(currpid);
+    
 
 #if PREEMPT
     preempt = QUANTUM;
