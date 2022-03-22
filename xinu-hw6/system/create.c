@@ -62,7 +62,7 @@ syscall create(void *funcaddr, ulong ssize, unsigned int priority, char *name, u
     ppcb->state = PRSUSP; //set to suspend
     ppcb->stkptr = saddr; //strores the pointer
     ppcb->stklen = ssize; //stores the size
-   // ppcb->tickets = ppcb->tickets+1; //TODO set value(DONE?)
+    ppcb->tickets = priority; //TODO set value(DONE?)
     strncpy(ppcb->name, name, PNMLEN);
 
     /* Initialize stack with accounting block. */
@@ -89,13 +89,13 @@ syscall create(void *funcaddr, ulong ssize, unsigned int priority, char *name, u
  
    
 
-    for (i = 0; i < 16; i++)
+    for (i = 0; i < 17; i++)
         {
             *--saddr = 0;
         }
         saddr[CTX_LR]=&userret; //assigned to LR
         saddr[CTX_PC]=funcaddr; //assigned to PC
-        
+
         	// TODO: Initialize process context.
         saddr[CTX_R2] = ARM_MODE_SYS | ARM_F_BIT;    //Sets specific spot in stack to enable interrupts
 

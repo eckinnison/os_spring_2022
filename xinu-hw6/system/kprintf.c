@@ -39,7 +39,7 @@ syscall kgetc(void) //*****************HELP*************
     //       once the receiver is not empty, get character c.
     unsigned char c = 0;
 
-    if (kcheckc()) {                    //check to see if the vals are there
+    /*if (kcheckc()) {                    //check to see if the vals are there
         for (int k = 0; k < UNGETMAX; k++) {        //loop through the array
             if (ungetArray[k] != NULL) {        //if its null put the char in the array
                 c=ungetArray[k];
@@ -52,7 +52,7 @@ syscall kgetc(void) //*****************HELP*************
             }
         }
     }
-    
+    */
     while ((regptr->fr) & (PL011_FR_RXFE)) {    //otherwise wait until its not empty 
     }
     

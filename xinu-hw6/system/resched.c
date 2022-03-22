@@ -19,6 +19,8 @@ syscall resched(void)
 {
     pcb *oldproc;               /* pointer to old process entry */
     pcb *newproc;               /* pointer to new process entry */
+    int ps = 0;
+    ps = disable();
 
     oldproc = &proctab[currpid];
 
@@ -37,16 +39,28 @@ syscall resched(void)
     int totaltickets=0;
     for(i=0; i< NPROC; i++){
         if((PRCURR == proctab[i].state) || (PRREADY == proctab[i].state)){
+       //     kprintf("hello\r\n");
+
             totaltickets += proctab[i].tickets;
+
         }
     }
 
-    int winner = random(totaltickets);
+    int winner; 
+    winner = random(totaltickets);
+   // kprintf("tottickets:%d", totaltickets);
+    //kprintf("winner:%d", winner);
 
      for(i=0; i< NPROC; i++){
+      //  kprintf("proctab: %d\r\n",proctab[i].state);
+
         if((PRCURR == proctab[i].state) || (PRREADY == proctab[i].state)){
-           if(winner>i){
-               return i;
+      //      kprintf("hi friend\r\n");
+
+           if(winner=i){
+       //        kprintf("?????\r\n");
+                break;
+               //return i;
            }
         }
      }
@@ -78,7 +92,7 @@ syscall resched(void)
      * Set currpid to the new process.
         currpid = newproc
      */
-
+//kprintf("made it here");
     currpid = dequeue(readylist);
     newproc=&proctab[currpid];
     newproc->state = PRCURR;    /* mark it currently running    */
@@ -93,6 +107,7 @@ syscall resched(void)
 
     ctxsw(&oldproc->stkptr, &newproc->stkptr);
 
+    restore(ps);
     /* The OLD process returns here when resumed. */
     return OK;
 }
