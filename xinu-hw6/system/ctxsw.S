@@ -36,7 +36,7 @@
 ctxsw:		//look into this more
 sub sp, sp, #64		//lower the stack pointer
 //mov r0, sp	//this is bad
-//mrs r0, cpsr
+mrs r2, cpsr
 str r0, [sp, #CTX_R0*4]		//save everything
 str r1, [sp, #CTX_R1*4]
 str r2, [sp, #CTX_R2*4]
@@ -71,7 +71,7 @@ ldr r10, [sp, #CTX_R10*4]
 ldr r11, [sp, #CTX_R11*4]
 ldr ip, [sp, #CTX_PC*4]
 ldr lr, [sp, #CTX_LR*4]
-//msr cpsr_c, r0 //might need to change r0 to a different register
+msr cpsr_c, r2 //might need to change r0 to a different register
 
 add sp, sp, #64			//raise the sp
 

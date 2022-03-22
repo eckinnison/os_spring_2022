@@ -46,7 +46,7 @@ syscall resched(void)
      for(i=0; i< NPROC; i++){
         if((PRCURR == proctab[i].state) || (PRREADY == proctab[i].state)){
            if(winner>i){
-               return &proctab[currpid];
+               return i;
            }
         }
      }
