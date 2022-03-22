@@ -33,6 +33,17 @@ int testmain(int argc, char **argv)
     return 0;
 }
 
+int infiniteloop(int argc, char **argv)
+{
+    kprintf("Hello XINU infinite!\r\n");
+
+    int i=0;
+    while(i==0)
+    {
+        user_yield();
+    }
+    return 0;
+}
 void testbigargs(int a, int b, int c, int d, int e, int f, int g, int h)
 {
     kprintf("Testing bigargs...\r\n");
@@ -136,9 +147,14 @@ void testcases(void)
         while (numproc > 1)
             resched();
         break;
-    case 'p':   //TODO TODO TODO
-
-    break;
+    case 'p':   //TODO!!!!
+        ready(create((void *)testmain, INITSTK, 3, "MAIN1", 2, 0, NULL),
+              RESCHED_YES);
+        ready(create((void *)infiniteloop, INITSTK, 3, "MAIN1", 2, 0, NULL),
+              RESCHED_YES);
+        while (numproc > 1)
+            resched();
+        break;
     default:
         break;
     }

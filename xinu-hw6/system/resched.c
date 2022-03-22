@@ -39,8 +39,6 @@ syscall resched(void)
     int totaltickets=0;
     for(i=0; i< NPROC; i++){
         if((PRCURR == proctab[i].state) || (PRREADY == proctab[i].state)){
-       //     kprintf("hello\r\n");
-
             totaltickets += proctab[i].tickets;
 
         }
