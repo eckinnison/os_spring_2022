@@ -1,4 +1,4 @@
-../system/xtrap.o: ../system/xtrap.c ../include/xinu.h \
+../system/clkinit.o: ../system/clkinit.c ../include/xinu.h \
  ../include/interrupt.h ../include/stddef.h ../include/bcm2837.h \
  ../include/kernel.h ../include/conf.h ../include/stdarg.h \
  ../include/compiler.h ../include/arm.h ../include/arm-atag.h \

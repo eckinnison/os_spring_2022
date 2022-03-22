@@ -33,31 +33,40 @@ syscall resched(void)
         //function given by brylow to people in class on friday only below
         //******************************************************
 
+    int i=0;
+    int totaltickets=0;
     for(i=0; i< NPROC; i++){
-
         if((PRCURR == proctab[i].state) || (PRREADY == proctab[i].state)){
-            totaltickets += proctab[i].ticket
+            totaltickets += proctab[i].tickets;
         }
-
     }
 
+    int winner = random(totaltickets);
+
+     for(i=0; i< NPROC; i++){
+        if((PRCURR == proctab[i].state) || (PRREADY == proctab[i].state)){
+           if(winner>i){
+               return &proctab[currpid];
+           }
+        }
+     }
 // TEXTBOOK 9.1 CODE (editted based on our functions):
 
-    // counter: used to track if we’ve found the winner yet
-        int counter = 0;
+    // // counter: used to track if we’ve found the winner yet
+    //     int counter = 0;
 
-    // winner: use some call to a random number generator to
-    // get a value, between 0 and the total # of tickets
-        int winner = random(totaltickets);
+    // // winner: use some call to a random number generator to
+    // // get a value, between 0 and the total # of tickets
+    //     int winner = random(totaltickets);
 
-    // current: use this to walk through the list of jobs
-        node_t *current = head;
-        while (current) {
-            counter = counter + current->tickets;
-            if (counter > winner)
-                break; // found the winner
-            current = current->next;
-        }
+    // // current: use this to walk through the list of jobs
+    //     node_t *current = head;
+    //     while (current) {
+    //         counter = counter + current->tickets;
+    //         if (counter > winner)
+    //             break; // found the winner
+    //         current = current->next;
+    //     }
     // ’current’ is the winner: schedule it...
 
     /**

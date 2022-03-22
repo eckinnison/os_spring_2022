@@ -32,8 +32,7 @@ void *getstk(ulong);
  * @param nargs    number of arguments that follow
  * @return the new process id
  */
- //TODO: Add parameter for ticket
-syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, uint tickets, ...)
+syscall create(void *funcaddr, ulong ssize, unsigned int priority, char *name, ulong nargs, ...)
 {
     ulong *saddr;               /* stack address                */
     ulong pid;                  /* stores new process id        */
@@ -63,7 +62,7 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, uint ticket
     ppcb->state = PRSUSP; //set to suspend
     ppcb->stkptr = saddr; //strores the pointer
     ppcb->stklen = ssize; //stores the size
-    //ppcb->tickets = ...; //TODO set value
+    ppcb->tickets = ppcb->tickets+1; //TODO set value(DONE?)
     strncpy(ppcb->name, name, PNMLEN);
 
     /* Initialize stack with accounting block. */
@@ -88,12 +87,8 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, uint ticket
 
 	// TODO: Initialize process context.
     //saddr[...] = ARM_MODE_SYS | ARM_F_BIT;    //Sets specific spot in stack to enable interrupts
-	// TODO:  Place arguments into activation record.
-	//        See K&R 7.3 for example using va_start, va_arg and
-	//        va_end macros for variable argument functions.
-   
-  //  *--saddr=funcaddr;
-   // *--saddr=&userret;
+
+ 
    
 
     for (i = 0; i < 16; i++)
@@ -121,31 +116,7 @@ syscall create(void *funcaddr, ulong ssize, char *name, ulong nargs, uint ticket
     }
     va_end(ap);
 
-  /*  kprintf("ppcb->stkptr = 0x%08X==0x%08X\n",ppcb->stkptr);
-    kprintf("saddr[stack magic] = 0x%08X=0x%08X\n",&saddr[CTX_R0-4], saddr[CTX_R0-4]);
-    kprintf("saddr[pid] = 0x%08X==0x%08X\n",&saddr[CTX_R0-3], saddr[CTX_R0-3]);
-    kprintf("saddr[stklen] = 0x%08X==0x%08X\n",&saddr[CTX_R0-2],saddr[CTX_R0-2]);
-    kprintf("saddr[stkbase] = 0x%08X==0x%08X\n",&saddr[CTX_R0-1],saddr[CTX_R0-1]);
-    kprintf("saddr[CTX_R0] = 0x%08X==0x%08X\n",&saddr[CTX_R0],saddr[CTX_R0]);   //arg0
-    kprintf("saddr[CTX_R1] = 0x%08X==0x%08X\n",&saddr[CTX_R1],saddr[CTX_R1]);   //arg1
-    kprintf("saddr[CTX_R2] = 0x%08X==0x%08X\n",&saddr[CTX_R2],saddr[CTX_R2]);   //arg2
-    kprintf("saddr[CTX_R3] = 0x%08X==0x%08X\n",&saddr[CTX_R3],saddr[CTX_R3]);   //arg3
-    kprintf("saddr[CTX_R4] = 0x%08X==0x%08X\n",&saddr[CTX_R4],saddr[CTX_R4]);
-    kprintf("saddr[CTX_R5] = 0x%08X==0x%08X\n",&saddr[CTX_R5],saddr[CTX_R5]);
-    kprintf("saddr[CTX_R6] = 0x%08X==0x%08X\n",&saddr[CTX_R6],saddr[CTX_R6]);
-    kprintf("saddr[CTX_R7] = 0x%08X==0x%08X\n",&saddr[CTX_R7],saddr[CTX_R7]);
-    kprintf("saddr[CTX_R8] = 0x%08X==0x%08X\n",&saddr[CTX_R8],saddr[CTX_R8]);
-    kprintf("saddr[CTX_R9] = 0x%08X==0x%08X\n",&saddr[CTX_R9],saddr[CTX_R9]);
-    kprintf("saddr[CTX_R10] = 0x%08X==0x%08X\n",&saddr[CTX_R10],saddr[CTX_R10]);
-    kprintf("saddr[CTX_R11] = 0x%08X==0x%08X\n",&saddr[CTX_R11],saddr[CTX_R11]);
-    kprintf("saddr[CTX_IP] = 0x%08X==0x%08X\n",&saddr[CTX_IP],saddr[CTX_IP]);
-    kprintf("saddr[CTX_SP] = 0x%08X==0x%08X\n",&saddr[CTX_SP],saddr[CTX_SP]);
-    kprintf("saddr[CTX_LR] = 0x%08X==0x%08X\n",&saddr[CTX_LR],saddr[CTX_LR]);
-    kprintf("saddr[CTX_PC] = 0x%08X==0x%08X\n",&saddr[CTX_PC],saddr[CTX_PC]);       //thinks this one is arg4 and prints that out
-    kprintf("saddr[buffer1] = 0x%08X==0x%08X\n",&saddr[CTX_PC+1],saddr[CTX_PC+1]);  //arg4  thinks this is arg 5
-    kprintf("saddr[buffer2] = 0x%08X==0x%08X\n",&saddr[CTX_PC+2],saddr[CTX_PC+2]);  //arg5  system thinks this is arg6
-    kprintf("saddr[buffer3] = 0x%08X==0x%08X\n",&saddr[CTX_PC+3],saddr[CTX_PC+3]);  //arg6 system thinks this is arg7
-    kprintf("saddr[buffer4] = 0x%08X==0x%08X\n",&saddr[CTX_PC+4],saddr[CTX_PC+4]);  //arg7 system doesnt look at this*/
+ 
     return pid;
 }
 

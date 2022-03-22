@@ -36,6 +36,7 @@
 ctxsw:		//look into this more
 sub sp, sp, #64		//lower the stack pointer
 //mov r0, sp	//this is bad
+//mrs r0, cpsr
 str r0, [sp, #CTX_R0*4]		//save everything
 str r1, [sp, #CTX_R1*4]
 str r2, [sp, #CTX_R2*4]
@@ -55,6 +56,7 @@ str sp, [r0] //brylow gave this
 
 ldr sp, [r1] //bylow gave this
 
+
 ldr r0, [sp, #CTX_R0*4]		//load the new one into the registers
 ldr r1, [sp, #CTX_R1*4]
 ldr r2, [sp, #CTX_R2*4]
@@ -69,10 +71,10 @@ ldr r10, [sp, #CTX_R10*4]
 ldr r11, [sp, #CTX_R11*4]
 ldr ip, [sp, #CTX_PC*4]
 ldr lr, [sp, #CTX_LR*4]
+//msr cpsr_c, r0 //might need to change r0 to a different register
+
 add sp, sp, #64			//raise the sp
 
-//mrs register, cpsr
-//msr cpsr_c, r0 //might need to change r0 to a different register
 
 bx ip //Taiwo gave this line of code so that it loops and doesnt crash
 
