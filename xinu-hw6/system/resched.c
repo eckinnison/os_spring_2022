@@ -60,7 +60,6 @@ syscall resched(void)
            if(winner=i){
        //        kprintf("?????\r\n");
                 break;
-               //return i;
            }
         }
      }

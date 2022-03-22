@@ -89,7 +89,7 @@ syscall create(void *funcaddr, ulong ssize, unsigned int priority, char *name, u
  
    
 
-    for (i = 0; i < 17; i++)
+    for (i = 0; i < 16; i++)
         {
             *--saddr = 0;
         }
