@@ -34,10 +34,9 @@
  * @return special case -- see above
  */
 ctxsw:		//look into this more
-sub sp, sp, #64		//lower the stack pointer
+sub sp, sp, #68		//lower the stack pointer
 //mov r0, sp	//this is bad
-//str r2, [sp, #CTX_R2*4]
-mrs r2, cpsr
+//str r2, [sp, #16*4]
 str r0, [sp, #CTX_R0*4]		//save everything
 str r1, [sp, #CTX_R1*4]
 str r2, [sp, #CTX_R2*4]
@@ -51,7 +50,11 @@ str r9, [sp, #CTX_R9*4]
 str r10, [sp, #CTX_R10*4]
 str r11, [sp, #CTX_R11*4]
 str lr, [sp, #CTX_PC*4]
-str lr, [sp, #CTX_LR*4]  
+str lr, [sp, #CTX_LR*4] 
+
+//new trying it out
+str r2, [sp, #CTX_R2*4]  
+mrs r2, cpsr
 
 str sp, [r0] //brylow gave this
 
@@ -72,10 +75,10 @@ ldr r10, [sp, #CTX_R10*4]
 ldr r11, [sp, #CTX_R11*4]
 ldr ip, [sp, #CTX_PC*4]
 ldr lr, [sp, #CTX_LR*4]
+ldr r2, [sp, #CTX_R2*4]
 msr cpsr_c, r2 //might need to change r0 to a different register
-//ldr r2, [sp, #CTX_R2*4]
 
-add sp, sp, #64			//raise the sp
+add sp, sp, #68			//raise the sp
 
 
 bx ip //Taiwo gave this line of code so that it loops and doesnt crash

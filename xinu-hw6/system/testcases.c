@@ -28,7 +28,7 @@ int testmain(int argc, char **argv)
     {
         kprintf("This is process %d\r\n", currpid);
 
-        user_yield();
+        resched();
     }
     return 0;
 }

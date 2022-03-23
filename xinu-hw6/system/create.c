@@ -86,9 +86,6 @@ syscall create(void *funcaddr, ulong ssize, unsigned int priority, char *name, u
     int *Record = saddr;
 
 
- 
-   
-
     for (i = 0; i < 16; i++)
         {
             *--saddr = 0;
@@ -97,7 +94,7 @@ syscall create(void *funcaddr, ulong ssize, unsigned int priority, char *name, u
         saddr[CTX_PC]=funcaddr; //assigned to PC
 
         	// TODO: Initialize process context.
-        saddr[CTX_R2] = ARM_MODE_SYS | ARM_F_BIT;    //Sets specific spot in stack to enable interrupts
+        saddr[2] = ARM_MODE_SYS | ARM_F_BIT;    //Sets specific spot in stack to enable interrupts
 
 
     ppcb->stkptr = saddr; //strores the pointer
