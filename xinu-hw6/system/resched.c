@@ -19,7 +19,9 @@ syscall resched(void)
 {
     pcb *oldproc;               /* pointer to old process entry */
     pcb *newproc;               /* pointer to new process entry */
-    int ps = 0;
+
+    irqmask ps;                 // NEW
+    //int ps = 0;               // COMMENTED OUT
     ps = disable();
 
     oldproc = &proctab[currpid];
