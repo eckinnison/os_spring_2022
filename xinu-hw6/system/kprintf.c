@@ -140,7 +140,7 @@ syscall kputc(uchar c)
 syscall kprintf(const char* format, ...)    //didnt touch this
 {
     irqmask pc;     // NEW, disable interrupts while a line is being printed
-    pc = disable(): // NEW
+    pc = disable(); // NEW
     int retval;
     va_list ap;
     va_start(ap, format);
