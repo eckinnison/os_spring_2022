@@ -33,7 +33,7 @@ syscall resched(void);
 
 /* Kernel constants */
 // TODO: Set PREEMPT to true to test preemption
-#define PREEMPT		true    /* preemptive rescheduling                      */
+#define PREEMPT		TRUE    /* preemptive rescheduling                      */
 #define SEED        1431     /* seed for random number generator */
 
 /* Assertions */

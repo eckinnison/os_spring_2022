@@ -15,14 +15,44 @@ extern void ctxsw(void *, void *);
  * gives correct NEXT state for current process if other than PRREADY.
  * @return OK when the process is context switched back
  */
+
+static int random_pick(){
+    int totaltickets=0;
+    int i;
+    for (i =0; i < NPROC; i++){
+        if ((proctab[i].state == PRCURR) || (PRREADY == proctab[i].state)){
+            totaltickets += proctab[i].tickets;
+        }
+    }
+        
+        int winner;
+        winner = random(totaltickets);
+        
+        int procTicketsHigh;
+        procTicketsHigh = 0;
+    for (i =0; i < NPROC; i++){
+        if ((proctab[i].state == PRCURR) || (PRREADY == proctab[i].state)){
+            procTicketsHigh += proctab[i].tickets ; // multiplies the amount of tickets by process ID
+            
+            if(winner <= procTicketsHigh){
+            
+                return i;
+            }
+        }
+    }
+    
+}
+
 syscall resched(void)
 {
-    pcb *oldproc;               /* pointer to old process entry */
-    pcb *newproc;               /* pointer to new process entry */
-
     irqmask ps;                 // NEW
     //int ps = 0;               // COMMENTED OUT
     ps = disable();
+    
+    pcb *oldproc;               /* pointer to old process entry */
+    pcb *newproc;               /* pointer to new process entry */
+
+    
 
     oldproc = &proctab[currpid];
 
@@ -37,7 +67,7 @@ syscall resched(void)
         //function given by brylow to people in class on friday only below
         //******************************************************
 
-    int i=0;
+   /* int i=0;
     int totaltickets=0;
     for(i=0; i< NPROC; i++){
         if((PRCURR == proctab[i].state) || (PRREADY == proctab[i].state)){
@@ -62,7 +92,7 @@ syscall resched(void)
                 break;
            }
         }
-     }
+     }*/
 // TEXTBOOK 9.1 CODE (editted based on our functions):
 
     // // counter: used to track if we’ve found the winner yet
@@ -92,12 +122,13 @@ syscall resched(void)
         currpid = newproc
      */
 //kprintf("made it here");
-    currpid = dequeue(readylist);
+    currpid = random_pick();
+    remove(currpid);
+    
     newproc=&proctab[currpid];
     newproc->state = PRCURR;    /* mark it currently running    */
-    remove(currpid);
-
-    currpid = newproc; // currpid set to new process, given above, should go here or above in textbook code?
+   
+    //currpid = newproc; // currpid set to new process, given above, should go here or above in textbook code?
     
 
 #if PREEMPT

@@ -1,10 +1,10 @@
 /**
  * COSC 3250 - Project 4
  * This helps to swtich between processes by loading and storing respective registers
- * @author Emma Claire Kinnison David Santiago
+ * @author Emma Claire Kinnison Erin Cahill
  * Instructor Dr. Brylow
- * TA-BOT:MAILTO emma.kinnison@marquette.edu david.santiago@marquette.edu
- * Collaborators: Gabbie Rohde and Jacob Deighton because I(Emma Claire) needed help
+ * TA-BOT:MAILTO emma.kinnison@marquette.edu erin.cahill@marquette.edu
+ * Collaborators: Gabbie Rohde and Jacob Deighton 
  */
  /**
  * @file     ctxsw.s
