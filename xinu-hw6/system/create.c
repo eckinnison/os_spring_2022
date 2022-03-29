@@ -56,7 +56,9 @@ syscall create(void *funcaddr, ulong ssize, unsigned int priority, char *name, u
 
     numproc++;
     ppcb = &proctab[pid];
-	
+	if (priority=1){
+        priority=2;
+    }
 	// TODO: Setup PCB entry for new process.
     ppcb->stkbase = (ulong*)(((ulong)saddr) - ssize);   //given from class
     ppcb->state = PRSUSP; //set to suspend

@@ -17,6 +17,7 @@ extern void ctxsw(void *, void *);
  */
 
 static int random_pick(){
+    pcb *ppcb = NULL;           /* process control block pointer */
     int totaltickets=0;
     int i;
     for (i =0; i < NPROC; i++){
@@ -28,6 +29,9 @@ static int random_pick(){
         int winner;
         winner = random(totaltickets);
         
+        
+        //kprintf("winner3: %d\r\n", winner);
+
         int procTicketsHigh;
         procTicketsHigh = 0;
     for (i =0; i < NPROC; i++){
@@ -124,10 +128,9 @@ syscall resched(void)
 //kprintf("made it here");
     currpid = random_pick();
     remove(currpid);
-    
     newproc=&proctab[currpid];
     newproc->state = PRCURR;    /* mark it currently running    */
-   
+    
     //currpid = newproc; // currpid set to new process, given above, should go here or above in textbook code?
     
 

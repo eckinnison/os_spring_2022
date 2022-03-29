@@ -135,13 +135,13 @@ void testcases(void)
 
     case '3':
         // Create three copies of a process, and let them play.
-        ready(create((void *)testmain, INITSTK, 20, "MAIN1", 2, 0, NULL),
+        ready(create((void *)testmain, INITSTK, 1, "MAIN1", 2, 0, NULL),
               RESCHED_NO);
 
-        ready(create((void *)testmain, INITSTK, 25, "MAIN2", 2, 0, NULL),
+        ready(create((void *)testmain, INITSTK, 20, "MAIN2", 2, 0, NULL),
               RESCHED_NO);
 
-        ready(create((void *)testmain, INITSTK, 30, "MAIN3", 2, 0, NULL),
+        ready(create((void *)testmain, INITSTK, 3, "MAIN3", 2, 0, NULL),
               RESCHED_YES);
 
         while (numproc > 1)
