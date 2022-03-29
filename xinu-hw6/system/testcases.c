@@ -148,7 +148,7 @@ void testcases(void)
             resched();
         break;
     case 'p':   //TODO!!!!
-        ready(create((void *)testmain, INITSTK, 3, "MAIN1", 2, 0, NULL),
+        ready(create((void *)testmain, INITSTK, 6, "MAIN1", 2, 0, NULL),
               RESCHED_YES);
         ready(create((void *)infiniteloop, INITSTK, 3, "MAIN1", 2, 0, NULL),
               RESCHED_YES);

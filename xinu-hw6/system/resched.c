@@ -25,9 +25,16 @@ static int random_pick(){
             totaltickets += proctab[i].tickets;
         }
     }
-        
-        int winner;
-        winner = random(totaltickets);
+        if(totaltickets=1){
+            int winner;
+            winner = random(totaltickets);
+        }
+        else{
+            totaltickets=totaltickets-1;
+            int winner;
+            winner = random(totaltickets);
+            winner=winner+1;
+        }
         
         
         //kprintf("winner3: %d\r\n", winner);
