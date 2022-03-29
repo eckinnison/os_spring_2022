@@ -20,18 +20,19 @@ static int random_pick(){
     pcb *ppcb = NULL;           /* process control block pointer */
     int totaltickets=0;
     int i;
+    int winner;
     for (i =0; i < NPROC; i++){
         if ((proctab[i].state == PRCURR) || (PRREADY == proctab[i].state)){
             totaltickets += proctab[i].tickets;
         }
     }
         if(totaltickets=1){
-            int winner;
+            //int winner;
             winner = random(totaltickets);
         }
         else{
             totaltickets=totaltickets-1;
-            int winner;
+            //int winner;
             winner = random(totaltickets);
             winner=winner+1;
         }
