@@ -18,21 +18,22 @@ extern void ctxsw(void *, void *);
 
 static int random_pick(){
     pcb *ppcb = NULL;           /* process control block pointer */
-    int totaltickets=0;
+    int totaltickets;
+    totaltickets=0;
     int i;
     int winner;
+    winner=0;
     for (i =0; i < NPROC; i++){
         if ((proctab[i].state == PRCURR) || (PRREADY == proctab[i].state)){
             totaltickets += proctab[i].tickets;
         }
     }
-        if(totaltickets=1){
-            //int winner;
+        //kprintf("\r\ntotaltickets: %d ", totaltickets);  //i dont know why but I added this and it works
+        if(totaltickets==1){
             winner = random(totaltickets);
         }
         else{
             totaltickets=totaltickets-1;
-            //int winner;
             winner = random(totaltickets);
             winner=winner+1;
         }
