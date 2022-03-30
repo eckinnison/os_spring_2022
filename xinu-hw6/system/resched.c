@@ -1,8 +1,16 @@
 /**
+ * COSC 3250 - Project 6
+ * Explain briefly the functionality of the program.
+ * @author Emma Claire Kinnison Erin Cahil
+ * Instructor Dr. Brylow
+ * TA-BOT:MAILTO emma.kinnison@marquette.edu erin.cahill@marquette.edu
+ * Collaborators: Gabbie Rohde and Jacob Deighton
+ */
+/**
  * @file resched.c
  * @provides resched
  *
- * COSC 3250 Assignment 4
+ * COSC 3250 Assignment 6
  */
 /* Embedded XINU, Copyright (C) 2008.  All rights reserved. */
 
@@ -28,7 +36,7 @@ static int random_pick(){
             totaltickets += proctab[i].tickets;
         }
     }
-        //kprintf("\r\ntotaltickets: %d ", totaltickets);  //i dont know why but I added this and it works
+      // kprintf("\r\n%d", totaltickets);  //i dont know why but I added this and it works
         if(totaltickets==1){
             winner = random(totaltickets);
         }

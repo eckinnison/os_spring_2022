@@ -1,5 +1,5 @@
 /**
- * COSC 3250 - Project 4
+ * COSC 3250 - Project 6
  * Explain briefly the functionality of the program.
  * @author Emma Claire Kinnison Erin Cahil
  * Instructor Dr. Brylow
@@ -57,7 +57,9 @@ syscall create(void *funcaddr, ulong ssize, unsigned int priority, char *name, u
     numproc++;
     ppcb = &proctab[pid];
 
-
+    if (priority == 1){
+        priority = 2;
+    }
 	// TODO: Setup PCB entry for new process.
     ppcb->stkbase = (ulong*)(((ulong)saddr) - ssize);   //given from class
     ppcb->state = PRSUSP; //set to suspend
