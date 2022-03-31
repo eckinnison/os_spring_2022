@@ -20,6 +20,9 @@
  */
 void *getmem(ulong nbytes)
 {
+    irqmask pc;     // NEW, disable interrupts while a line is being printed
+    pc = disable(); // NEW
+
     register memblk *prev, *curr, *leftover;
 
     if (0 == nbytes)
@@ -31,13 +34,15 @@ void *getmem(ulong nbytes)
     nbytes = (ulong)roundmb(nbytes);
 
     /* TODO:
-     *      - Disable interrupts
+     *      - Disable interrupts(DONE?)
      *      - Traverse through the freelist
      *        to find a block that's suitable 
      *        (Use First Fit with remainder splitting)
-     *      - Restore interrupts
+     *      - Restore interrupts(DONE?)
      *      - return memory address if successful
      */
+
+    restore(pc);    // NEW enable interupts
 
     return (void *)SYSERR;
 }

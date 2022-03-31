@@ -21,13 +21,16 @@
  */
 syscall freemem(void *memptr, ulong nbytes)
 {
+    irqmask pc;     // NEW, disable interrupts while a line is being printed
+    pc = disable(); // NEW
+    
     register struct memblock *block, *next, *prev;
     ulong top;
 
     /* make sure block is in heap */
     if ((0 == nbytes)
         || ((ulong)memptr < freelist.base)
-        || ((ulong)memptr > freelist.base + freelist.bound)
+        || ((ulong)memptr > freelist.base + freelist.bound))
     {
         return SYSERR;
     }
@@ -36,15 +39,16 @@ syscall freemem(void *memptr, ulong nbytes)
     nbytes = (ulong)roundmb(nbytes);
 
     /* TODO:
-     *      - Disable interrupts
+     *      - Disable interrupts (DONE?)
      *      - Find where the memory block should
      *        go back onto the freelist (based on address)
      *      - Find top of previous memblock
      *      - Make sure block is not overlapping on prev or next blocks
      *      - Coalesce with previous block if adjacent
      *      - Coalesce with next block if adjacent
-     *      - Restore interrupts
+     *      - Restore interrupts (DONE?)
      */
 
+    restore(pc);    // NEW enable interupts
     return OK;
 }
