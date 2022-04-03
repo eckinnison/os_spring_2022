@@ -25,10 +25,14 @@ void *getmem(ulong nbytes)
 
     register memblk *prev, *curr, *leftover;
 
+    curr = freelist.base; // Set currnode = to base of freelist to start search
+
     if (0 == nbytes)
     {
         return (void *)SYSERR;
     }
+   //if(curr == )
+    
 
     /* round to multiple of memblock size   */
     nbytes = (ulong)roundmb(nbytes);

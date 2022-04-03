@@ -156,9 +156,9 @@ void testcases(void)
             resched();
         break;
     case '4': //FREELIST PRINT
-        //while(freelist.next != NULL){ //I'm pretty sure freelist.next variable is wrong
+         // while(freelist.next != NULL){ //I'm pretty sure freelist.next variable is wrong
         //   kprintf("Node: %d\r\n", freelist); //also freelist is probably wrong variable
-        //   currnode = next node;  //need to get what is the current node and next node in terms of freelist
+        //   curr = next;  //need to get what is the current node and next node in terms of freelist
         //}
         break;
     default:

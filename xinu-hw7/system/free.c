@@ -16,6 +16,9 @@ syscall free(void *ptr)
 {
     struct memblock *block;
 
+    //block -> head; //1?
+
+
     /* TODO:
      *      1) set block to point to memblock to be free'd (ptr)
      *      2) find accounting information of the memblock
