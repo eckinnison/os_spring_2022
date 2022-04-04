@@ -90,17 +90,44 @@ void printpcb(int pid)
     kprintf("Base of run time stack    : 0x%08X \r\n", ppcb->stkbase);
     kprintf("Stack length of process   : %8u \r\n", ppcb->stklen);
 }
+
+void freelist_64()
+{
+    register memblk *prev, *curr, *leftover;
+    ulong my_var=64;
+    getmem(my_var);
+    curr = freelist.head;  
+    ulong base= freelist.base;  
+    ulong bound = freelist.bound;
+    ulong size=freelist.size;
+    while(curr != NULL){ //I'm pretty sure freelist.next variable is wrong
+            
+            kprintf("bound: %d\r\n", bound); //also freelist is probably wrong variable
+            kprintf("Size: %d\r\n", size); //also freelist is probably wrong variable
+
+            curr= curr->next; //need to get what is the current node and next node in terms of freelist
+            bound = freelist.bound;
+            size=freelist.size; 
+    }
+    if((bound-size)==64){
+
+        kprintf("Passed!\r\n"); //also freelist is probably wrong variable
+
+    }
+    else{
+        kprintf("failed\r\n");
+    }
+}
+
 void print_freelist()
 {
     register memblk *prev, *curr, *leftover;
     ulong my_var=1;
-    prev->next =freelist.head;
     getmem(my_var);
-   // curr= curr->next; //need to get what is the current node and next node in terms of freelist
-    prev->next =freelist.head;
-     my_var=1;
+    curr= curr->next; //need to get what is the current node and next node in terms of freelist
+    my_var=1;
     getmem(my_var);
-   // curr= curr->next; //need to get what is the current node and next node in terms of freelist
+    curr= curr->next; //need to get what is the current node and next node in terms of freelist
 
 
     curr = freelist.head;  
@@ -113,19 +140,12 @@ void print_freelist()
             kprintf("base: %d\r\n", base); //also freelist is probably wrong variable
             kprintf("bound: %d\r\n", bound); //also freelist is probably wrong variable
             kprintf("Size: %d\r\n", size); //also freelist is probably wrong variable
-            
-
             curr= curr->next; //need to get what is the current node and next node in terms of freelist
-           // curr = freelist.head;  
+
             base= freelist.base;  
             bound = freelist.bound;
             size=freelist.size;
-            /*kprintf("head: %d\r\n", curr); //also freelist is probably wrong variable
-            kprintf("base: %d\r\n", base); //also freelist is probably wrong variable
-            kprintf("bound: %d\r\n", bound); //also freelist is probably wrong variable
-            kprintf("Size: %d\r\n", size); //also freelist is probably wrong variable
             
-            curr= curr->next; //need to get what is the current node and next node in terms of freelist*/
     }
 }
 /**
@@ -136,6 +156,8 @@ void testcases(void)
     int c;
 
     kprintf("0) Print out the freelist\r\n");
+    kprintf("1) Check that freelist can get the memory for 64 bytes\r\n");
+
     /*kprintf("0) Test user_none syscall\r\n");
     kprintf("1) Test user_getc syscall\r\n");
     kprintf("2) Test user_putc syscall\r\n");
@@ -194,15 +216,11 @@ void testcases(void)
             resched();
         break;*/
     case '0': //FREELIST PRINT
-            //curr= freelist.head;    
-
-           /* while(curr != NULL){ //I'm pretty sure freelist.next variable is wrong
-            kprintf("Node: %d\r\n", freelist); //also freelist is probably wrong variable
-            curr= curr->next; //need to get what is the current node and next node in terms of freelist
-       */
-            
             print_freelist();
-        
+        break;
+    case '1': //Check 64 bits
+            freelist_64();
+    
         break;
     default:
         break;
