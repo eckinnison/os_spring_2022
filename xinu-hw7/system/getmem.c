@@ -25,15 +25,13 @@ void *getmem(ulong nbytes)
 
     register memblk *prev, *curr, *leftover;
     
-    prev= &freelist;
-    curr= freelist.head;    
+    prev = &freelist;
+    curr = freelist.head;    
 
     if (0 == nbytes)
     {
         return (void *)SYSERR;
-    }
-   //if(curr == )
-    
+    }    
 
     /* round to multiple of memblock size   */
     nbytes = (ulong)roundmb(nbytes);
@@ -48,24 +46,24 @@ void *getmem(ulong nbytes)
      */
 
     while(curr != NULL){
-       if(curr->length ==nbytes){
+       if(curr->length == nbytes){
            prev->next =curr->next;
-           freelist.size = freelist.size -nbytes;
+           freelist.size = freelist.size - nbytes;
            restore(pc);
 	       return (void *)curr;
        }
        else if(curr->length>nbytes){
-           leftover= (struct memblock *)((ulong)curr+nbytes);
+           leftover = (struct memblock *)((ulong)curr+nbytes);
            leftover->length = curr->length -nbytes;
            leftover->next = curr->next;
-           prev->next =leftover;
+           prev->next = leftover;
            freelist.size = freelist.size - nbytes;
            restore(pc);
 	       return (void *)curr;
        }
 
-        curr= curr->next;
-        prev=prev->next;
+        curr = curr->next;
+        prev = prev->next;
 
     }
 
