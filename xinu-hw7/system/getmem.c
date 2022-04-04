@@ -51,16 +51,25 @@ void *getmem(ulong nbytes)
            freelist.size = freelist.size - nbytes;
            restore(pc);
 	       return (void *)curr;
+           kprintf("here");
        }
-       else if(curr->length>nbytes){
+       else if(curr->length > nbytes){
            leftover = (struct memblock *)((ulong)curr+nbytes);
            leftover->length = curr->length -nbytes;
            leftover->next = curr->next;
+            //kprintf("leftover length: %d\r\n", &leftover->length); //also freelist is probably wrong variable
+            //kprintf("leftover next: %d\r\n", &leftover->next); //also freelist is probably wrong variable
+
            prev->next = leftover;
            freelist.size = freelist.size - nbytes;
+           // kprintf("freelist size: %d\r\n", freelist.size); //also freelist is probably wrong variable
+
+            kprintf("here2\r\n\r\n");
            restore(pc);
 	       return (void *)curr;
+           
        }
+           kprintf("here3");
 
         curr = curr->next;
         prev = prev->next;

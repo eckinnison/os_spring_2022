@@ -90,7 +90,44 @@ void printpcb(int pid)
     kprintf("Base of run time stack    : 0x%08X \r\n", ppcb->stkbase);
     kprintf("Stack length of process   : %8u \r\n", ppcb->stklen);
 }
+void print_freelist()
+{
+    register memblk *prev, *curr, *leftover;
+    ulong my_var=1;
+    prev->next =freelist.head;
+    getmem(my_var);
+   // curr= curr->next; //need to get what is the current node and next node in terms of freelist
+    prev->next =freelist.head;
+     my_var=1;
+    getmem(my_var);
+   // curr= curr->next; //need to get what is the current node and next node in terms of freelist
 
+
+    curr = freelist.head;  
+    ulong base= freelist.base;  
+    ulong bound = freelist.bound;
+    ulong size=freelist.size;
+    while(curr != NULL){ //I'm pretty sure freelist.next variable is wrong
+            //kprintf("length: %d\r\n", &curr->length); //also freelist is probably wrong variable
+            kprintf("head: %d\r\n", curr); //also freelist is probably wrong variable
+            kprintf("base: %d\r\n", base); //also freelist is probably wrong variable
+            kprintf("bound: %d\r\n", bound); //also freelist is probably wrong variable
+            kprintf("Size: %d\r\n", size); //also freelist is probably wrong variable
+            
+
+            curr= curr->next; //need to get what is the current node and next node in terms of freelist
+           // curr = freelist.head;  
+            base= freelist.base;  
+            bound = freelist.bound;
+            size=freelist.size;
+            /*kprintf("head: %d\r\n", curr); //also freelist is probably wrong variable
+            kprintf("base: %d\r\n", base); //also freelist is probably wrong variable
+            kprintf("bound: %d\r\n", bound); //also freelist is probably wrong variable
+            kprintf("Size: %d\r\n", size); //also freelist is probably wrong variable
+            
+            curr= curr->next; //need to get what is the current node and next node in terms of freelist*/
+    }
+}
 /**
  * testcases - called after initialization completes to test things.
  */
@@ -156,15 +193,17 @@ void testcases(void)
         while (numproc > 1)
             resched();
         break;*/
-    //case '0': //FREELIST PRINT
+    case '0': //FREELIST PRINT
             //curr= freelist.head;    
 
            /* while(curr != NULL){ //I'm pretty sure freelist.next variable is wrong
             kprintf("Node: %d\r\n", freelist); //also freelist is probably wrong variable
             curr= curr->next; //need to get what is the current node and next node in terms of freelist
        */
-       // }
-      //  break;
+            
+            print_freelist();
+        
+        break;
     default:
         break;
     }
