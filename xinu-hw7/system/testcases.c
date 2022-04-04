@@ -98,12 +98,13 @@ void testcases(void)
 {
     int c;
 
-    kprintf("0) Test user_none syscall\r\n");
+    kprintf("0) Print out the freelist\r\n");
+    /*kprintf("0) Test user_none syscall\r\n");
     kprintf("1) Test user_getc syscall\r\n");
     kprintf("2) Test user_putc syscall\r\n");
     kprintf("3) Create three processes that test user_yield syscall\r\n");
     kprintf("p) Test case that demonstrates preemptive scheduling\r\n");
-
+*/
     kprintf("===TEST BEGIN===\r\n");
 
     // TODO: Test your operating system!
@@ -111,7 +112,7 @@ void testcases(void)
     c = kgetc();
     switch (c)
     {
-    case '0':
+    /*case '0':
         // Test user_none
         kprintf("This is a test of ...");
         user_none();
@@ -154,13 +155,16 @@ void testcases(void)
               RESCHED_YES);
         while (numproc > 1)
             resched();
-        break;
-    case '4': //FREELIST PRINT
-         // while(freelist.next != NULL){ //I'm pretty sure freelist.next variable is wrong
-        //   kprintf("Node: %d\r\n", freelist); //also freelist is probably wrong variable
-        //   curr = next;  //need to get what is the current node and next node in terms of freelist
-        //}
-        break;
+        break;*/
+    //case '0': //FREELIST PRINT
+            //curr= freelist.head;    
+
+           /* while(curr != NULL){ //I'm pretty sure freelist.next variable is wrong
+            kprintf("Node: %d\r\n", freelist); //also freelist is probably wrong variable
+            curr= curr->next; //need to get what is the current node and next node in terms of freelist
+       */
+       // }
+      //  break;
     default:
         break;
     }

@@ -48,6 +48,36 @@ syscall freemem(void *memptr, ulong nbytes)
      *      - Coalesce with next block if adjacent
      *      - Restore interrupts (DONE?)
      */
+    while(next != NULL && (ulong)block > (ulong)next){
+        prev = next;
+        next = next->next;
+    }
+
+    if (prev==(struct memblock *)&freelist){
+        top = NULL;
+    } 
+    else{
+        top=(ulong)prev + prev->length;
+    }
+
+    if((top>(ulong)block)||((next!=NULL)&&(((ulong)block + nbytes)>(ulong)next))){
+        restore(pc);
+        return SYSERR;
+    }
+
+    freelist.size += nbytes;
+
+    if(((ulong)block + block->length)+(ulong)next){
+        block->length=block->length + next->length;
+        block->next = next->next;
+    }
+
+    if(top == (ulong)block){
+        prev->length += block->length;
+        block = prev;
+        prev->next = block->next;
+    }
+
 
     restore(pc);    // NEW enable interupts
     return OK;

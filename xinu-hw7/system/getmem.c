@@ -24,8 +24,9 @@ void *getmem(ulong nbytes)
     pc = disable(); // NEW
 
     register memblk *prev, *curr, *leftover;
-
-    curr = freelist.base; // Set currnode = to base of freelist to start search
+    
+    prev= &freelist;
+    curr= freelist.head;    
 
     if (0 == nbytes)
     {
@@ -45,6 +46,29 @@ void *getmem(ulong nbytes)
      *      - Restore interrupts(DONE?)
      *      - return memory address if successful
      */
+
+    while(curr != NULL){
+       if(curr->length ==nbytes){
+           prev->next =curr->next;
+           freelist.size = freelist.size -nbytes;
+           restore(pc);
+	       return (void *)curr;
+       }
+       else if(curr->length>nbytes){
+           leftover= (struct memblock *)((ulong)curr+nbytes);
+           leftover->length = curr->length -nbytes;
+           leftover->next = curr->next;
+           prev->next =leftover;
+           freelist.size = freelist.size - nbytes;
+           restore(pc);
+	       return (void *)curr;
+       }
+
+        curr= curr->next;
+        prev=prev->next;
+
+    }
+
 
     restore(pc);    // NEW enable interupts
 
