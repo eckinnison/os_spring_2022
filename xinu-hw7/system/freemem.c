@@ -37,7 +37,8 @@ syscall freemem(void *memptr, ulong nbytes)
 
     block = (struct memblock *)memptr;
     nbytes = (ulong)roundmb(nbytes);
-
+    prev =(struct memblock *)&freelist;
+	next = freelist.head;
     /* TODO:
      *      - Disable interrupts (DONE?)
      *      - Find where the memory block should
@@ -78,7 +79,11 @@ syscall freemem(void *memptr, ulong nbytes)
         prev->next = block->next;
     }
 
-
+    memblk *p = freelist.head;
+    while (p!= NULL){
+        kprintf("{0x%08x; %10x; 0x%08x} \n", p, p->length, p->next);
+        p = p->next;
+    }
     restore(pc);    // NEW enable interupts
     return OK;
 }

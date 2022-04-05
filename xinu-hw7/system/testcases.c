@@ -16,8 +16,11 @@
 /* Embedded XINU, Copyright (C) 2007.  All rights reserved. */
 
 #include <xinu.h>
+#include <stdio.h>
 
 extern void main(int, char *);
+void print_freelist(void);
+
 
 int testmain(int argc, char **argv)
 {
@@ -91,61 +94,16 @@ void printpcb(int pid)
     kprintf("Stack length of process   : %8u \r\n", ppcb->stklen);
 }
 
-void freelist_64()
-{
-    register memblk *prev, *curr, *leftover;
-    ulong my_var=64;
-    getmem(my_var);
-    curr = freelist.head;  
-    ulong base= freelist.base;  
-    ulong bound = freelist.bound;
-    ulong size=freelist.size;
-    while(curr != NULL){ //I'm pretty sure freelist.next variable is wrong
-            
-            kprintf("bound: %d\r\n", bound); //also freelist is probably wrong variable
-            kprintf("Size: %d\r\n", size); //also freelist is probably wrong variable
-
-            curr= curr->next; //need to get what is the current node and next node in terms of freelist
-            bound = freelist.bound;
-            size=freelist.size; 
-    }
-    if((bound-size)==64){
-
-        kprintf("Passed!\r\n"); //also freelist is probably wrong variable
-
-    }
-    else{
-        kprintf("failed\r\n");
-    }
-}
 
 void print_freelist()
 {
-    register memblk *prev, *curr, *leftover;
-    ulong my_var=1;
-    getmem(my_var);
-    curr= curr->next; //need to get what is the current node and next node in terms of freelist
-    my_var=1;
-    getmem(my_var);
-    curr= curr->next; //need to get what is the current node and next node in terms of freelist
-
-
-    curr = freelist.head;  
-    ulong base= freelist.base;  
-    ulong bound = freelist.bound;
-    ulong size=freelist.size;
-    while(curr != NULL){ //I'm pretty sure freelist.next variable is wrong
-            //kprintf("length: %d\r\n", &curr->length); //also freelist is probably wrong variable
-            kprintf("head: %d\r\n", curr); //also freelist is probably wrong variable
-            kprintf("base: %d\r\n", base); //also freelist is probably wrong variable
-            kprintf("bound: %d\r\n", bound); //also freelist is probably wrong variable
-            kprintf("Size: %d\r\n", size); //also freelist is probably wrong variable
-            curr= curr->next; //need to get what is the current node and next node in terms of freelist
-
-            base= freelist.base;  
-            bound = freelist.bound;
-            size=freelist.size;
-            
+    register struct memblock *block;
+    block= freelist.head;
+    while(block !=NULL){
+        kprintf("address: 0x%08x \r\n", block);
+		kprintf("length: 0x%08x \r\n", block->length);
+		kprintf("next: 0x%08x \r\n", block->next);
+		block = block->next; 
     }
 }
 /**
@@ -155,15 +113,16 @@ void testcases(void)
 {
     int c;
 
-    kprintf("0) Print out the freelist\r\n");
-    kprintf("1) Check that freelist can get the memory for 64 bytes\r\n");
-
-    /*kprintf("0) Test user_none syscall\r\n");
+   
+    kprintf("0) Test user_none syscall\r\n");
     kprintf("1) Test user_getc syscall\r\n");
     kprintf("2) Test user_putc syscall\r\n");
     kprintf("3) Create three processes that test user_yield syscall\r\n");
     kprintf("p) Test case that demonstrates preemptive scheduling\r\n");
-*/
+    kprintf("4) Print out the freelist\r\n");
+    kprintf("5) Add Mem\r\n");
+    kprintf("6) remove Mem\r\n");
+
     kprintf("===TEST BEGIN===\r\n");
 
     // TODO: Test your operating system!
@@ -171,7 +130,7 @@ void testcases(void)
     c = kgetc();
     switch (c)
     {
-    /*case '0':
+    case '0':
         // Test user_none
         kprintf("This is a test of ...");
         user_none();
@@ -214,13 +173,21 @@ void testcases(void)
               RESCHED_YES);
         while (numproc > 1)
             resched();
-        break;*/
-    case '0': //FREELIST PRINT
+        break;
+    case '4': //FREELIST PRINT
             print_freelist();
         break;
-    case '1': //Check 64 bits
-            freelist_64();
-    
+    case '5': //Check 64 bits
+        print_freelist();
+		ulong *a = malloc(0x100);
+       	print_freelist();			
+        free(a);
+        print_freelist();    
+        break;
+    case '6': //Check 64 bits
+        print_freelist();
+        free(0x100);
+        print_freelist();    
         break;
     default:
         break;
