@@ -75,6 +75,7 @@ syscall freemem(void *memptr, ulong nbytes)
     if(((ulong)block+block->length)==(ulong)next){
         block->length=block->length + next->length;
         block->next=next->next;
+       //block->next=prev->next;
     }
 
     restore(pc);    // NEW enable interupts

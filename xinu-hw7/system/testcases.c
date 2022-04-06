@@ -207,17 +207,16 @@ void testcases(void)
         print_freelist();
         kprintf("\r\n");
 
-        kprintf("free\r\n");
-        free(0x1000);
-        print_freelist(); 
-        kprintf("\r\n");
 
         kprintf("freemem\r\n");
         freemem(c, 0x1000);
         print_freelist();  
         kprintf("\r\n");
 
-       
+        kprintf("free\r\n");
+        free(c);
+        print_freelist(); 
+        kprintf("\r\n");
  
 
         break;

@@ -19,12 +19,16 @@ syscall free(void *ptr)
     //block -> head; //1?
 
     block = (struct memblock *)ptr;
-    //block--;
+
+    //kprintf("here %08x\r\n", block->length);
+    block--;
     if(block->next != block)//sanity check
 	{
 		return SYSERR;
 	}
-    freemem(block, block->length);
+        kprintf("here2 %08x\r\n", block->length-8);
+
+    freemem(block+1, block->length-8);
     /* TODO:
      *      1) set block to point to memblock to be free'd (ptr)
      *      2) find accounting information of the memblock
