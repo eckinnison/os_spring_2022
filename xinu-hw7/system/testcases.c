@@ -188,7 +188,9 @@ void testcases(void)
         break;
     case '6': //Check 64 bits
         print_freelist();
-        free(0x100);
+        getmem(0x1000);
+        print_freelist();
+		ulong *b = malloc(0x1000);
         print_freelist();    
         break;
     case '7': //Check 64 bits

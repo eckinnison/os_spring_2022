@@ -19,7 +19,7 @@ syscall free(void *ptr)
     //block -> head; //1?
 
     block = (struct memblock *)ptr;
-    block--;
+    //block--;
     if(block->next != block)//sanity check
 	{
 		return SYSERR;
