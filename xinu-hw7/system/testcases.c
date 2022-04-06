@@ -121,7 +121,8 @@ void testcases(void)
     kprintf("p) Test case that demonstrates preemptive scheduling\r\n");
     kprintf("4) Print out the freelist\r\n");
     kprintf("5) Add Mem\r\n");
-    kprintf("6) remove Mem\r\n");
+    kprintf("6) free Mem\r\n");
+    kprintf("7) getmem Mem\r\n");
 
     kprintf("===TEST BEGIN===\r\n");
 
@@ -179,15 +180,23 @@ void testcases(void)
         break;
     case '5': //Check 64 bits
         print_freelist();
-		ulong *a = malloc(0x100);
+		ulong *a = malloc(0x1000);
        	print_freelist();			
-        free(a);
+        freemem(a, 0x1000);
+        kprintf("free 0x1000\r\n");
         print_freelist();    
         break;
     case '6': //Check 64 bits
         print_freelist();
         free(0x100);
         print_freelist();    
+        break;
+    case '7': //Check 64 bits
+        print_freelist();
+        getmem(0x1000);
+        print_freelist();  
+          
+ 
         break;
     default:
         break;

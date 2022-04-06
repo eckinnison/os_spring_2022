@@ -49,6 +49,7 @@ void *getmem(ulong nbytes)
        if(curr->length == nbytes){
            prev->next =curr->next;
            freelist.size = freelist.size - nbytes;
+
            restore(pc);
 	       return (void *)curr;
        }
@@ -67,7 +68,10 @@ void *getmem(ulong nbytes)
 	       return (void *)curr;
            
        }
-
+       else if(curr->length < nbytes){
+            restore(pc);
+	        return (void *)SYSERR;
+       }
         curr = curr->next;
         prev = prev->next;
 

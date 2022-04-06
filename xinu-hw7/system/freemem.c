@@ -37,7 +37,7 @@ syscall freemem(void *memptr, ulong nbytes)
 
     block = (struct memblock *)memptr;
     nbytes = (ulong)roundmb(nbytes);
-    prev =(struct memblock *)&freelist;
+    prev =(memblk *)&freelist;
 	next = freelist.head;
     /* TODO:
      *      - Disable interrupts (DONE?)
@@ -49,41 +49,35 @@ syscall freemem(void *memptr, ulong nbytes)
      *      - Coalesce with next block if adjacent
      *      - Restore interrupts (DONE?)
      */
-    while(next != NULL && (ulong)block > (ulong)next){
+    while(next != NULL && (next<block)){
         prev = next;
         next = next->next;
     }
 
-    if (prev==(struct memblock *)&freelist){
+    if ((ulong)prev==(ulong)&freelist){
         top = NULL;
     } 
     else{
         top=(ulong)prev + prev->length;
     }
 
-    if((top>(ulong)block)||((next!=NULL)&&(((ulong)block + nbytes)>(ulong)next))){
-        restore(pc);
-        return SYSERR;
+    freelist.size=freelist.size+nbytes;
+    if((top)==((ulong)block)){
+        prev->length=prev->length+nbytes;
+        block=prev;
+    }
+    else{
+        block->length=nbytes;
+        block->next=next;
+        prev->next=block;
     }
 
-    freelist.size += nbytes;
 
-    if(((ulong)block + block->length)+(ulong)next){
+    if(((ulong)block+block->length)==(ulong)next){
         block->length=block->length + next->length;
-        block->next = next->next;
+        block->next=next->next;
     }
 
-    if(top == (ulong)block){
-        prev->length += block->length;
-        block = prev;
-        prev->next = block->next;
-    }
-
-    memblk *p = freelist.head;
-    while (p!= NULL){
-        kprintf("{0x%08x; %10x; 0x%08x} \n", p, p->length, p->next);
-        p = p->next;
-    }
     restore(pc);    // NEW enable interupts
     return OK;
 }
