@@ -26,7 +26,6 @@ syscall freemem(void *memptr, ulong nbytes)
     
     register struct memblock *block, *next, *prev;
     ulong top;
-
     /* make sure block is in heap */
     if ((0 == nbytes)
         || ((ulong)memptr < freelist.base)
@@ -35,7 +34,7 @@ syscall freemem(void *memptr, ulong nbytes)
         return SYSERR;
     }
 
-    block = (struct memblock *)memptr;
+    block = (struct memblock *)memptr-1;
     nbytes = (ulong)roundmb(nbytes);
     prev =(memblk *)&freelist;
 	next = freelist.head;
