@@ -26,9 +26,9 @@ syscall free(void *ptr)
 	{
 		return SYSERR;
 	}
-        kprintf("here2 %08x\r\n", block->length-8);
+//        kprintf("here2 %08x\r\n", block->length-8);
 
-    freemem(block+1, block->length-8);
+    freemem(block, block->length);
     /* TODO:
      *      1) set block to point to memblock to be free'd (ptr)
      *      2) find accounting information of the memblock

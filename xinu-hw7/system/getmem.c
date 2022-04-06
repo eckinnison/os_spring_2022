@@ -68,10 +68,10 @@ void *getmem(ulong nbytes)
 	       return (void *)curr;
            
        }
-       else if(curr->length < nbytes){
-            restore(pc);
-	        return (void *)SYSERR;
-       }
+//       else if(curr->length < nbytes){
+//            restore(pc);
+//	        return (void *)SYSERR;
+//      }
         curr = curr->next;
         prev = prev->next;
 

@@ -34,7 +34,7 @@ syscall freemem(void *memptr, ulong nbytes)
         return SYSERR;
     }
 
-    block = (struct memblock *)memptr-1;
+    block = (struct memblock *)memptr;
     nbytes = (ulong)roundmb(nbytes);
     prev =(memblk *)&freelist;
 	next = freelist.head;
