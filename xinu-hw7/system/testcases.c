@@ -188,10 +188,11 @@ void testcases(void)
         break;
     case '6': //Check 64 bits
         print_freelist();
-        getmem(0x1000);
+        getmem(134217728);
         print_freelist();
-		ulong *b = malloc(0x1000);
-        print_freelist();    
+        //getmem(0x0100);
+		//ulong *b = malloc(0x100);
+        //print_freelist();   
         break;
     case '7': //Check 64 bits
         kprintf("top\r\n");
@@ -207,16 +208,17 @@ void testcases(void)
         print_freelist();
         kprintf("\r\n");
 
-
+         kprintf("free\r\n");
+        free(c);
+        print_freelist(); 
+        kprintf("\r\n");
+        
         kprintf("freemem\r\n");
         freemem(c, 0x1000);
         print_freelist();  
         kprintf("\r\n");
 
-        kprintf("free\r\n");
-        free(c);
-        print_freelist(); 
-        kprintf("\r\n");
+       
  
 
         break;

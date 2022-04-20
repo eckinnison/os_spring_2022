@@ -18,6 +18,9 @@
  *      The returned pointer is guaranteed to be 8-byte aligned.  Free the block
  *      with memfree() when done with it.
  */
+
+
+
 void *getmem(ulong nbytes)
 {
     irqmask pc;     // NEW, disable interrupts while a line is being printed
@@ -34,7 +37,13 @@ void *getmem(ulong nbytes)
     }    
 
     /* round to multiple of memblock size   */
-    nbytes = (ulong)roundmb(nbytes);
+    if((nbytes & (nbytes - 1)) == 0)
+{
+        nbytes = (ulong)roundmb(nbytes);
+    }
+    else{
+        nbytes = (ulong)roundmb(nbytes+1);
+    }
 
     /* TODO:
      *      - Disable interrupts(DONE?)
@@ -59,14 +68,11 @@ void *getmem(ulong nbytes)
            leftover->next = curr->next;
             //kprintf("leftover length: %d\r\n", &leftover->length); //also freelist is probably wrong variable
             //kprintf("leftover next: %d\r\n", &leftover->next); //also freelist is probably wrong variable
-
            prev->next = leftover;
            freelist.size = freelist.size - nbytes;
            // kprintf("freelist size: %d\r\n", freelist.size); //also freelist is probably wrong variable
-
            restore(pc);
-	       return (void *)curr;
-           
+	       return (void *)curr; 
        }
 //       else if(curr->length < nbytes){
 //            restore(pc);
