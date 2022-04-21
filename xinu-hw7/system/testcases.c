@@ -120,8 +120,8 @@ void testcases(void)
     kprintf("3) Create three processes that test user_yield syscall\r\n");
     kprintf("p) Test case that demonstrates preemptive scheduling\r\n");
     kprintf("4) Print out the freelist\r\n");
-    kprintf("5) Add Mem\r\n");
-    kprintf("6) getMem and malloc\r\n");
+    kprintf("5) malloc normal, and power of 2\r\n");
+    kprintf("6) getMem power of 2, and normal\r\n");
     kprintf("7) freemem Mem and free\r\n");
 
     kprintf("===TEST BEGIN===\r\n");
@@ -178,49 +178,54 @@ void testcases(void)
     case '4': //FREELIST PRINT
             print_freelist();
         break;
-    case '5': //Check 64 bits
+    case '5': //malloc
         print_freelist();
 		ulong *a = malloc(0x1000);
-       	print_freelist();			
-        freemem(a, 0x1000);
+       	print_freelist();	
+        ulong *b = malloc(134217728);
+       	print_freelist();		
+        /*freemem(a, 0x1000);
         kprintf("free 0x1000\r\n");
-        print_freelist();    
+        print_freelist();  */  
         break;
     case '6': //Check 64 bits
         print_freelist();
-        getmem(134217728);
+        getmem(134217728);  //check power of 2
         print_freelist();
-        //getmem(0x0100);
-		//ulong *b = malloc(0x100);
-        //print_freelist();   
+        getmem(0x0100);     //check normal
+        print_freelist();   
         break;
-    case '7': //Check 64 bits
-        kprintf("top\r\n");
+    case '7': //freemem
+        print_freelist();
+        ulong *c = malloc(134217728);  //check power of 2
+        print_freelist();
+        ulong *d = malloc(0x0100);  //check normal
+        print_freelist();
+
+
+        kprintf("\r\n");
+        freemem(d, 0x0100);
         print_freelist();
         kprintf("\r\n");
-        kprintf("getmem\r\n");
-        getmem(0x1000);
+        freemem(c, 134217728);
+        print_freelist();
+
+        break;
+
+    case '8': //free
+        print_freelist();
+        ulong *e = malloc(134217728);  //check power of 2
+        print_freelist();
+        ulong *f = malloc(0x0100);  //check normal
+        print_freelist();
+
+
+        kprintf("\r\n");
+        free(e);
         print_freelist();
         kprintf("\r\n");
-
-        kprintf("malloc\r\n");
-		ulong *c = malloc(0x1000);
+        free(f);
         print_freelist();
-        kprintf("\r\n");
-
-         kprintf("free\r\n");
-        free(c);
-        print_freelist(); 
-        kprintf("\r\n");
-        
-        kprintf("freemem\r\n");
-        freemem(c, 0x1000);
-        print_freelist();  
-        kprintf("\r\n");
-
-       
- 
-
         break;
     default:
         break;

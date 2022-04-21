@@ -37,8 +37,7 @@ void *getmem(ulong nbytes)
     }    
 
     /* round to multiple of memblock size   */
-    if((nbytes & (nbytes - 1)) == 0)
-{
+    if((nbytes & (nbytes - 1)) == 0){
         nbytes = (ulong)roundmb(nbytes);
     }
     else{
