@@ -190,7 +190,7 @@ void testcases(void)
         break;
     case '6': //Check 64 bits
         print_freelist();
-        getmem(134217728);  //check power of 2
+        getmem(536870912);  //check power of 2
         print_freelist();
         getmem(0x0100);     //check normal
         print_freelist();   

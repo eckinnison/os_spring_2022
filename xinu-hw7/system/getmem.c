@@ -26,10 +26,7 @@ void *getmem(ulong nbytes)
     irqmask pc;     // NEW, disable interrupts while a line is being printed
     pc = disable(); // NEW
 
-    register memblk *prev, *curr, *leftover;
-    
-    prev = &freelist;
-    curr = freelist.head;    
+    register memblk *prev, *curr, *leftover;    
 
     if (0 == nbytes)
     {
@@ -43,7 +40,8 @@ void *getmem(ulong nbytes)
     else{
         nbytes = (ulong)roundmb(nbytes+1);
     }
-
+    prev = &freelist;
+    curr = freelist.head;
     /* TODO:
      *      - Disable interrupts(DONE?)
      *      - Traverse through the freelist
