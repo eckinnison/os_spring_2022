@@ -35,7 +35,13 @@ syscall freemem(void *memptr, ulong nbytes)
     }
 
     block = (struct memblock *)memptr;
-    nbytes = (ulong)roundmb(nbytes);
+    if((nbytes & (nbytes - 1)) == 0){
+        nbytes = (ulong)roundmb(nbytes);
+    }
+    else{
+        nbytes = (ulong)roundmb(nbytes);
+    }
+    //nbytes = (ulong)roundmb(nbytes);
     prev =(memblk *)&freelist;
 	next = freelist.head;
     /* TODO:

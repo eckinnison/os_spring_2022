@@ -21,7 +21,7 @@ syscall free(void *ptr)
     block = (struct memblock *)ptr;
 
     //kprintf("here %08x\r\n", block->length);
-    block--;
+   // block--;
     if(block->next != block)//sanity check
 	{
 		return SYSERR;
