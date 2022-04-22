@@ -122,8 +122,7 @@ void testcases(void)
     kprintf("4) Print out the freelist\r\n");
     kprintf("5) malloc normal, and power of 2\r\n");
     kprintf("6) getMem power of 2, and normal\r\n");
-    kprintf("7) freemem Mem power of 2, and normal\r\n");
-    kprintf("8) free power of 2, and normal\r\n");
+    kprintf("7) freemem Mem and free\r\n");
 
     kprintf("===TEST BEGIN===\r\n");
 
@@ -191,7 +190,7 @@ void testcases(void)
         break;
     case '6': //Check 64 bits
         print_freelist();
-        getmem(536870912);  //check power of 2
+        getmem(134217728);  //check power of 2
         print_freelist();
         getmem(0x0100);     //check normal
         print_freelist();   
