@@ -122,7 +122,8 @@ void testcases(void)
     kprintf("4) Print out the freelist\r\n");
     kprintf("5) malloc normal, and power of 2\r\n");
     kprintf("6) getMem power of 2, and normal\r\n");
-    kprintf("7) freemem Mem and free\r\n");
+    kprintf("7) freemem Mem power of 2, and normal\r\n");
+    kprintf("8) free power of 2, and normal\r\n");
 
     kprintf("===TEST BEGIN===\r\n");
 

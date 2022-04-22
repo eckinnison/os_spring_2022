@@ -33,7 +33,7 @@ void *malloc(ulong size)
       *      4) Return proper pointer to base of free memory region
       */
     size = sizeof(struct memblock) + size;
-	pmem = (struct memblock*)getmem(size-8);
+	pmem = (struct memblock*)getmem(size);
 
     if(pmem == SYSERR)
     {
@@ -41,5 +41,5 @@ void *malloc(ulong size)
     }
     pmem->length = size;
     pmem->next = pmem;
-    return (void *)(pmem);
+    return (void *)(pmem+1);
 }
