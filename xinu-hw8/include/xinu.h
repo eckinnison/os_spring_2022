@@ -20,3 +20,6 @@
 #include <clock.h>
 #include <random.h>
 #include <memory.h>
+#include <mmu.h>
+#include <atomic.h>
+#include <pthread.h>
