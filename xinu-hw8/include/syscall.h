@@ -41,6 +41,8 @@ struct syscall_info
 #define SYSCALL_MBOXFREE   14 /**< Free a mailbox                   */
 #define SYSCALL_MBOXRECV   15 /**< Receive message from mailbox     */
 #define SYSCALL_MBOXSEND   16 /**< Send message to mailbox          */
+#define SYSCALL_GETMEM     17 /**< Allocate heap memory */
+#define SYSCALL_FREEMEM    18 /**< Deallocate heap memory */
 
 extern const struct syscall_info syscall_table[];
 extern int nsyscalls;
