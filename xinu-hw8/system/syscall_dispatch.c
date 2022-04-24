@@ -46,8 +46,12 @@ const struct syscall_info syscall_table[] = {
     { 2, (void *)sc_none },     /* SYSCALL_SEEK      = 10 */
     { 4, (void *)sc_none },     /* SYSCALL_CONTROL   = 11 */
     { 1, (void *)sc_none },     /* SYSCALL_GETDEV    = 12 */
-    { 1, (void *)sc_none },     /* SYSCALL_GETMEM    = 13 */
-    ( 2, (void *)sc_none ),     /* SYSCALL_FREEMEM   = 14 */
+    //{#, (void *)sc_ptcreate},
+    //{#, (void *)sc_ptjoin},
+    //{#, (void *)sc_ptlock},
+    //{#, (void *)sc_ptunlock},
+    { 1, (void *)sc_getmem },   /* SYSCALL_GETMEM    = 17 */ 
+    { 2, (void *)sc_freemem },  /* SYSCALL_FREEMEM   = 18 */
 };
 
 int nsyscall = sizeof(syscall_table) / sizeof(struct syscall_info);
