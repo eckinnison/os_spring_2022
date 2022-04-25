@@ -1,4 +1,4 @@
-../system/kill.o: ../system/kill.c ../include/xinu.h \
+../system/pthread.o: ../system/pthread.c ../include/xinu.h \
  ../include/interrupt.h ../include/stddef.h ../include/bcm2837.h \
  ../include/kernel.h ../include/conf.h ../include/stdarg.h \
  ../include/compiler.h ../include/arm.h ../include/arm-atag.h \

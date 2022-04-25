@@ -30,6 +30,12 @@ syscall sc_none(int *);
 syscall sc_yield(int *);
 syscall sc_getc(int *);
 syscall sc_putc(int *);
+syscall sc_getmem(ulong nbytes);
+syscall sc_freemem(void *memptr, ulong nbytes);
+syscall pthread_create(pthread_t * thread, pthread_attr_t * attr, void *(*start_routine)(void *), void *arg);
+syscall pthread_join(pthread_t thread, void **retval);
+syscall pthread_mutex_lock(pthread_mutex_t * mutex);
+syscall pthread_mutex_unlock(pthread_mutex_t * mutex);
 
 /* table for determining how to call syscalls */
 const struct syscall_info syscall_table[] = {
@@ -46,10 +52,10 @@ const struct syscall_info syscall_table[] = {
     { 2, (void *)sc_none },     /* SYSCALL_SEEK      = 10 */
     { 4, (void *)sc_none },     /* SYSCALL_CONTROL   = 11 */
     { 1, (void *)sc_none },     /* SYSCALL_GETDEV    = 12 */
-    //{#, (void *)sc_ptcreate},
-    //{#, (void *)sc_ptjoin},
-    //{#, (void *)sc_ptlock},
-    //{#, (void *)sc_ptunlock},
+    { 1, (void *)pthread_create },
+    { 1, (void *)pthread_join },
+    { 1, (void *)pthread_mutex_lock },
+    { 1, (void *)pthread_mutex_unlock },
     { 1, (void *)sc_getmem },   /* SYSCALL_GETMEM    = 17 */ 
     { 2, (void *)sc_freemem },  /* SYSCALL_FREEMEM   = 18 */
 };
@@ -81,6 +87,8 @@ syscall sc_none(int *args)
 {
     return OK;
 }
+
+
 
 syscall user_none(void)
 {
@@ -140,4 +148,37 @@ syscall sc_putc(int *args)
 syscall user_putc(int descrp, char character)
 {
     SYSCALL(PUTC);
+}
+
+syscall sc_getmem(ulong nbytes)
+{
+
+}
+
+syscall sc_freemem(void *memptr, ulong nbytes)
+{
+
+}
+
+
+// -------------TODO-------------
+// added based on Brylow feedback -- functions from pthread.h
+// need to build each function but currently just returning to ensure we can compile
+syscall pthread_create(pthread_t * thread, pthread_attr_t * attr, void *(*start_routine)(void *), void *arg){
+    return 1; 
+}
+
+
+syscall pthread_join(pthread_t thread, void **retval){
+    return 1; 
+}
+
+
+syscall pthread_mutex_lock(pthread_mutex_t * mutex){
+    return 1; 
+}
+
+
+syscall pthread_mutex_unlock(pthread_mutex_t * mutex){
+    return 1; 
 }
