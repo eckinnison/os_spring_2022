@@ -227,6 +227,9 @@ void testcases(void)
         free(f);
         print_freelist();
         break;
+    case '9': //pdemo
+        //pdemo3();
+    break;
     default:
         break;
     }
