@@ -34,7 +34,9 @@ syscall kill(int pid)
 
     case PRREADY:
         remove(pid);
-
+    
+    case PRJOIN:
+        remove(pid);
     default:
         ppcb->state = PRFREE;
     }

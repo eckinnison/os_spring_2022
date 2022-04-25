@@ -165,21 +165,24 @@ syscall sc_freemem(void *memptr, ulong nbytes)
 // added based on Brylow feedback -- functions from pthread.h
 // need to build each function but currently just returning to ensure we can compile
 syscall pthread_create(pthread_t * thread, pthread_attr_t * attr, void *(*start_routine)(void *), void *arg){
-    sc_create(thread);
+    sc_create(arg);
     return 1; 
 }
 
 
 syscall pthread_join(pthread_t thread, void **retval){
+    sc_join(thread);
     return 1; 
 }
 
 
 syscall pthread_mutex_lock(pthread_mutex_t * mutex){
+   sc_lock(mutex);
     return 1; 
 }
 
 
 syscall pthread_mutex_unlock(pthread_mutex_t * mutex){
+   sc_unlock(mutex);
     return 1; 
 }

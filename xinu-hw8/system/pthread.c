@@ -29,8 +29,8 @@ syscall sc_create(int *args)
      * tickets.(done)  Don't forget to use ready() to move the new process into
      * the PRREADY state.(done)
      */        
-    //ready(create((void *)testmain, INITSTK, 6, "MAIN1", 2, 0, NULL),
 
+    thread = create((void *)start_routine, INITSTK, 5,"Pthread", 1, arg); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
     ready(create((void *)thread, INITSTK, INITPRIO, "MAIN1", 1, 0, NULL),RESCHED_YES); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
 
     return OK;
@@ -54,6 +54,13 @@ syscall sc_join(int *args)
      * yield the processor.
      */
 
+     //this was commented out above is it the answer???
+    ASSERT(!isbadpid(thread));
+    ppcb = &proctab[currpid];
+    ppcb->state = PRJOIN;
+    enqueue(currpid, PRJOIN);
+    resched();
+
     return OK;
 }
 
@@ -67,7 +74,9 @@ syscall sc_lock(int *args)
     /**
      * TODO: Use the atomic CAS operation to secure the mutex lock.
      */
-    
+    while (_atomic_compareAndSwapStrong(mutex, PTHREAD_MUTEX_UNLOCKED, PTHREAD_MUTEX_LOCKED) == FALSE){
+		resched();
+    };
     return OK;
 }
 
@@ -81,6 +90,7 @@ syscall sc_unlock(int *args)
     /**
      * TODO: Release the mutex lock.
      */
+    mutex = PTHREAD_MUTEX_UNLOCKED;
 
     return OK;
 }
