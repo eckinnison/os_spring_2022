@@ -17,6 +17,7 @@ extern process main(void);      /* main is the first process created     */
 pcb proctab[NPROC];             /* Process table                         */
 qid_typ readylist;              /* List of READY processes               */
 memhead freelist;               /* List of free memory blocks            */
+qid_typ joinq;              /** <que for this thread                     */
 
 /* Active system status */
 int numproc;                    /* Number of live user processes         */
@@ -52,7 +53,7 @@ void nulluser(void)
     enable();
 
     /* Call the main program */
-   // ready(create((void *) main, INITSTK, "MAIN", INITPRIO, 2, 0, NULL), 0);
+    ready(create((void *) main, INITSTK, "MAIN", INITPRIO, 2, 0, NULL), 0);
     testcases();
     //pdemo3();
     /* null process has nothing else to do but cannot exit  */

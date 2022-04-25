@@ -27,6 +27,7 @@ syscall sc_create(int *args)
      * tickets.  Don't forget to use ready() to move the new process into
      * the PRREADY state.
      */
+    create(thread, attr, start_routine, 1, (void *)args); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
 
     return OK;
 }
