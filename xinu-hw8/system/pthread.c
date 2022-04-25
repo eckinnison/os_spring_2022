@@ -20,14 +20,18 @@ syscall sc_create(int *args)
     void  *start_routine = SCARG(void *, args);
     void            *arg = SCARG(void *, args);
 
+
+//**************DONE******************
     /**
      * TODO: Translate the pthread_create() call into the equivalent
      * call of our existing create() function for spawning new processes.
      * Use defaults INITSTK and INITPRIO for initial stack size and lottery
-     * tickets.  Don't forget to use ready() to move the new process into
-     * the PRREADY state.
-     */
-    create(thread, attr, start_routine, 1, (void *)args); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
+     * tickets.(done)  Don't forget to use ready() to move the new process into
+     * the PRREADY state.(done)
+     */        
+    //ready(create((void *)testmain, INITSTK, 6, "MAIN1", 2, 0, NULL),
+
+    ready(create((void *)thread, INITSTK, INITPRIO, "MAIN1", 1, 0, NULL),RESCHED_YES); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
 
     return OK;
 }
