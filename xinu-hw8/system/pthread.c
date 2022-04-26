@@ -55,6 +55,7 @@ syscall sc_join(int *args)
      */
 
      //this was commented out above is it the answer???
+     // I didn't write this, so idk why it was given
     ASSERT(!isbadpid(thread));
     ppcb = &proctab[currpid];
     ppcb->state = PRJOIN;
@@ -77,6 +78,7 @@ syscall sc_lock(int *args)
     while (_atomic_compareAndSwapStrong(mutex, PTHREAD_MUTEX_UNLOCKED, PTHREAD_MUTEX_LOCKED) == FALSE){
 		resched();
     };
+
     return OK;
 }
 
