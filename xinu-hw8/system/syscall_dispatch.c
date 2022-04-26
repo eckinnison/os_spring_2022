@@ -52,7 +52,7 @@ const struct syscall_info syscall_table[] = {
     { 2, (void *)sc_none },     /* SYSCALL_SEEK      = 10 */
     { 4, (void *)sc_none },     /* SYSCALL_CONTROL   = 11 */
     { 1, (void *)sc_none },     /* SYSCALL_GETDEV    = 12 */
-    { 1, (void *)pthread_create },
+    { 1, (void *)pthread_create },             
     { 1, (void *)pthread_join },
     { 1, (void *)pthread_mutex_lock },
     { 1, (void *)pthread_mutex_unlock },

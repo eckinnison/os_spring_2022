@@ -41,5 +41,7 @@ syscall kill(int pid)
         ppcb->state = PRFREE;
     }
 
+    //dequeue(currpid); // TODO: just an unfinished reminder to implement dequeue
+
     return OK;
 }
