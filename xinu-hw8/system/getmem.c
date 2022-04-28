@@ -5,6 +5,7 @@
 /* Embedded Xinu, Copyright (C) 2009, 2020.  All rights reserved. */
 
 #include <xinu.h>
+#define SCARG(type, args) (type)(*args++)
 
 /**
  * Allocate heap memory.
@@ -21,10 +22,11 @@
 
 
 
-void *getmem(ulong nbytes)
+void *sc_getmem(int *args)
 {
     irqmask pc;     // NEW, disable interrupts while a line is being printed
     pc = disable(); // NEW
+    ulong nbytes = SCARG(ulong, args); 
 
     register memblk *prev, *curr, *leftover;
     
@@ -37,12 +39,14 @@ void *getmem(ulong nbytes)
     }    
 
     /* round to multiple of memblock size   */
-    if((nbytes & (nbytes - 1)) == 0){
+    /*if((nbytes & (nbytes - 1)) == 0){
         nbytes = (ulong)roundmb(nbytes);
     }
     else{
         nbytes = (ulong)roundmb(nbytes+1);
-    }
+    }*/
+    nbytes = (ulong)roundmb(nbytes);
+
 
     /* TODO:
      *      - Disable interrupts(DONE?)

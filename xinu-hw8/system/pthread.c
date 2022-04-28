@@ -27,6 +27,9 @@ syscall sc_create(int *args)
      * tickets.  Don't forget to use ready() to move the new process into
      * the PRREADY state.
      */
+     
+    *thread = create(start_routine, INITSTK, INITPRIO,"Pthread", 1, arg); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
+    ready(*thread, RESCHED_YES);
 
     return OK;
 }
@@ -48,7 +51,13 @@ syscall sc_join(int *args)
      * Enqueue it on the JOIN queue of thread's PCB, and
      * yield the processor.
      */
-
+    irqmask pc;
+    pc = disable();
+    ASSERT(!isbadpid(thread));
+    proctab[currpid].state = PRJOIN;
+	enqueue(currpid, proctab[thread].joinq);	
+	resched();
+    restore(pc);
     return OK;
 }
 
@@ -58,7 +67,9 @@ syscall sc_join(int *args)
 syscall sc_lock(int *args)
 {
     pthread_mutex_t *mutex = SCARG(pthread_mutex_t *, args);
-
+    while (!_atomic_compareAndSwapStrong(mutex, PTHREAD_MUTEX_UNLOCKED, PTHREAD_MUTEX_LOCKED)){
+		resched();
+    }
     /**
      * TODO: Use the atomic CAS operation to secure the mutex lock.
      */
@@ -76,6 +87,7 @@ syscall sc_unlock(int *args)
     /**
      * TODO: Release the mutex lock.
      */
+    *mutex = PTHREAD_MUTEX_UNLOCKED;
 
     return OK;
 }
