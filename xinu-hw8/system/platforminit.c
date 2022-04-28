@@ -393,5 +393,8 @@ int platforminit(void)
      * platform vars like processor type and memory size. */
     parse_atag_list();
 
+    /* Initialize Memory Management Unit */
+    mmu_init();
+
     return OK;
 }
