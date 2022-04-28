@@ -37,10 +37,10 @@ struct syscall_info
 #define SYSCALL_SEEK       10 /**< Seek to position on device       */
 #define SYSCALL_CONTROL    11 /**< Control a device                 */
 #define SYSCALL_GETDEV     12 /**< Get a device number from string  */
-#define SYSCALL_MBOXALLOC  13 /**< Allocate a mailbox               */
-#define SYSCALL_MBOXFREE   14 /**< Free a mailbox                   */
-#define SYSCALL_MBOXRECV   15 /**< Receive message from mailbox     */
-#define SYSCALL_MBOXSEND   16 /**< Send message to mailbox          */
+#define SYSCALL_PTCREATE    13 /**< PThread create */
+#define SYSCALL_PTJOIN      14 /**< PThread join */
+#define SYSCALL_PTLOCK      15 /**< PThread mutex lock */
+#define SYSCALL_PTUNLOCK    16 /**< PThread mutex unlock */
 #define SYSCALL_GETMEM      17 /**< Allocate heap memory */
 #define SYSCALL_FREEMEM     18 /**< Deallocate heap memory */
 

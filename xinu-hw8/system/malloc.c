@@ -41,5 +41,5 @@ void *malloc(ulong size)
     }
     pmem->length = size;
     pmem->next = pmem;
-    return (void *)(pmem);
+    return (void *)(pmem+1);
 }

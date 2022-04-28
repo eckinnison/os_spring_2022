@@ -5,7 +5,8 @@
  ../include/queue.h ../include/memory.h ../include/string.h \
  ../include/ctype.h ../include/stdio.h ../include/platform.h \
  ../include/bcm2837.h ../include/pl011.h ../include/version.h \
- ../include/syscall.h ../include/clock.h ../include/random.h
+ ../include/syscall.h ../include/clock.h ../include/random.h \
+ ../include/mmu.h ../include/atomic.h ../include/pthread.h
 
 ../include/xinu.h:
 
@@ -52,3 +53,9 @@
 ../include/clock.h:
 
 ../include/random.h:
+
+../include/mmu.h:
+
+../include/atomic.h:
+
+../include/pthread.h:

@@ -28,7 +28,7 @@ syscall sc_create(int *args)
      * the PRREADY state.
      */
      
-    *thread = create(start_routine, INITSTK, INITPRIO,"Pthread", 1, arg); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
+    *thread = create(start_routine, INITSTK, INITPRIO,"PThread0", 1, arg); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
     ready(*thread, RESCHED_YES);
 
     return OK;

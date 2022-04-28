@@ -34,6 +34,7 @@ void *getstk(ulong);
  */
 syscall create(void *funcaddr, ulong ssize, unsigned int priority, char *name, ulong nargs, ...)
 {
+   // kprintf("in create\n");
     ulong *saddr;               /* stack address                */
     ulong pid;                  /* stores new process id        */
     pcb *ppcb;                  /* pointer to proc control blk  */
@@ -116,7 +117,8 @@ syscall create(void *funcaddr, ulong ssize, unsigned int priority, char *name, u
     }
     va_end(ap);
 
- 
+  //   kprintf("finished create\n");
+
     return pid;
 }
 

@@ -16,6 +16,8 @@
  */
 syscall ready(pid_typ pid, bool resch)
 {
+ //   kprintf("in ready\n");
+
     register pcb *ppcb;
 
     ASSERT(!isbadpid(pid));
@@ -29,5 +31,7 @@ syscall ready(pid_typ pid, bool resch)
     {
         resched();
     }
+   // kprintf("finish ready\n");
+
     return OK;
 }

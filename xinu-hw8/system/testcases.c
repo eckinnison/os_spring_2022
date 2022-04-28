@@ -25,7 +25,7 @@ void print_freelist(void);
 int testmain(int argc, char **argv)
 {
     int i = 0;
-    kprintf("Hello XINU World!\r\n");
+    kprintf("Hello XINU World test!\r\n");
 
     for (i = 0; i < 10; i++)
     {
