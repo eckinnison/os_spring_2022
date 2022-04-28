@@ -150,19 +150,12 @@ syscall user_putc(int descrp, char character)
     SYSCALL(PUTC);
 }
 
-syscall sc_getmem(int *args)
-{
-    ulong nbytes = SCARG(ulong, args);
-    SYSCALL(GETMEM);
+void *getmem(ulong nbytes){
+	SYSCALL(GETMEM);
 }
-
-syscall sc_freemem(int *args)
-{
-    void *memptr = SCARG(void *, args);
-    ulong nbytes = SCARG(ulong, args);
-    SYSCALL(FREEMEM);
+syscall freemem(void *pmem, ulong nbytes){
+	SYSCALL(FREEMEM);
 }
-
 
 // -------------TODO-------------
 // added based on Brylow feedback -- functions from pthread.h

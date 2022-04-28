@@ -30,8 +30,8 @@ syscall sc_create(int *args)
      * the PRREADY state.(done)
      */        
 
-    thread = create((void *)start_routine, INITSTK, INITPRIO, "Pthread", 1, arg); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
-    ready(thread, RESCHED_YES);
+    *thread = create((void *)start_routine, INITSTK, INITPRIO, "PThread0", 1, arg); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
+    ready(*thread, RESCHED_YES);
 
     return OK;
 }
@@ -93,7 +93,7 @@ syscall sc_unlock(int *args)
     /**
      * TODO: Release the mutex lock.
      */
-    mutex = PTHREAD_MUTEX_UNLOCKED;
+    *mutex = PTHREAD_MUTEX_UNLOCKED;
 
     return OK;
 }

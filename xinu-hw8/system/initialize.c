@@ -54,7 +54,8 @@ void nulluser(void)
 
     /* Call the main program */
     //ready(create((void *) main, INITSTK, INITPRIO, "MAIN", 2, 0, NULL), 0);
-    testcases();
+   // testcases();
+   main();
     //pdemo3();
     /* null process has nothing else to do but cannot exit  */
     while (1)

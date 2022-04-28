@@ -22,8 +22,11 @@
 
 
 
-void *getmem(ulong nbytes)
+void sc_getmem(int *args)
 {
+   // void *memptr= SCARG(void*, args);
+    ulong nbytes= SCARG(ulong, args);
+    
     irqmask pc;     // NEW, disable interrupts while a line is being printed
     pc = disable(); // NEW
 
