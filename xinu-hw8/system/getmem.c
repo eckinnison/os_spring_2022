@@ -5,7 +5,6 @@
 /* Embedded Xinu, Copyright (C) 2009, 2020.  All rights reserved. */
 
 #include <xinu.h>
-#define SCARG(type, args) (type)(*args++)
 
 /**
  * Allocate heap memory.
@@ -22,11 +21,8 @@
 
 
 
-void sc_getmem(int *args)
+void *getmem(ulong nbytes)
 {
-   // void *memptr= SCARG(void*, args);
-    ulong nbytes= SCARG(ulong, args);
-    
     irqmask pc;     // NEW, disable interrupts while a line is being printed
     pc = disable(); // NEW
 

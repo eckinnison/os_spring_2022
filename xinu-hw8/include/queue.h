@@ -27,7 +27,7 @@
 #define _QUEUE_H_
 
 #ifndef NQENT
-#define NQENT   NPROC  /**< one for each process                        */ \
+#define NQENT   NPROC   /**< one for each process                        */ \
           + 2           /**< plus two for each list (ready list)         */
 #endif
 

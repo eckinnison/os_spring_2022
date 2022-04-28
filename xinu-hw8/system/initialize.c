@@ -17,7 +17,6 @@ extern process main(void);      /* main is the first process created     */
 pcb proctab[NPROC];             /* Process table                         */
 qid_typ readylist;              /* List of READY processes               */
 memhead freelist;               /* List of free memory blocks            */
-qid_typ joinq;              /** <que for this thread                     */
 
 /* Active system status */
 int numproc;                    /* Number of live user processes         */
@@ -53,10 +52,8 @@ void nulluser(void)
     enable();
 
     /* Call the main program */
-    //ready(create((void *) main, INITSTK, INITPRIO, "MAIN", 2, 0, NULL), 0);
-   // testcases();
-   main();
-    //pdemo3();
+   // ready(create((void *) main, INITSTK, "MAIN", INITPRIO, 2, 0, NULL), 0);
+        testcases();
     /* null process has nothing else to do but cannot exit  */
     while (1)
     {
@@ -146,7 +143,6 @@ static int sysinit(void)
     ppcb->stkbase = (void *)&_end;
     ppcb->stkptr = NULL;
     ppcb->stklen = (ulong)memheap - (ulong)&_end;
-    ppcb->prjoin =0;
     ppcb->tickets = 1;
     currpid = NULLPROC;
 

@@ -5,7 +5,6 @@
 /* Embedded Xinu, Copyright (C) 2009, 2020.  All rights reserved. */
 
 #include <xinu.h>
-#define SCARG(type, args) (type)(*args++)
 
 /**
  * Frees a block of heap-allocated memory.
@@ -20,11 +19,8 @@
  *      ::OK on success; ::SYSERR on failure.  This function can only fail
  *      because of memory corruption or specifying an invalid memory block.
  */
-syscall sc_freemem(int *args)
+syscall freemem(void *memptr, ulong nbytes)
 {
-    void *memptr= SCARG(void*, args);
-    ulong nbytes= SCARG(ulong, args);
-
     irqmask pc;     // NEW, disable interrupts while a line is being printed
     pc = disable(); // NEW
     
@@ -39,8 +35,12 @@ syscall sc_freemem(int *args)
     }
 
     block = (struct memblock *)memptr;
-    nbytes = (ulong)roundmb(nbytes);
-
+    if((nbytes & (nbytes - 1)) == 0){
+        nbytes = (ulong)roundmb(nbytes);
+    }
+    else{
+        nbytes = (ulong)roundmb(nbytes);
+    }
     //nbytes = (ulong)roundmb(nbytes);
     prev =(memblk *)&freelist;
 	next = freelist.head;

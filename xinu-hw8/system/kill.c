@@ -21,7 +21,7 @@ syscall kill(int pid)
     {
         return SYSERR;
     }
-    sc_freemem(ppcb, ppcb->stklen);
+    freemem(ppcb, ppcb->stklen);
     ppcb = &proctab[pid];
 
     --numproc;
@@ -34,14 +34,10 @@ syscall kill(int pid)
 
     case PRREADY:
         remove(pid);
-    
-    case PRJOIN:
-        remove(pid);
+
     default:
         ppcb->state = PRFREE;
     }
-
-    //dequeue(currpid); // TODO: just an unfinished reminder to implement dequeue
 
     return OK;
 }
