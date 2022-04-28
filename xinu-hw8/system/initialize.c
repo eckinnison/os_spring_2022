@@ -53,8 +53,8 @@ void nulluser(void)
     enable();
 
     /* Call the main program */
-    ready(create((void *) main, INITSTK, "MAIN", INITPRIO, 2, 0, NULL), 0);
-   // testcases();
+    //ready(create((void *) main, INITSTK, INITPRIO, "MAIN", 2, 0, NULL), 0);
+    testcases();
     //pdemo3();
     /* null process has nothing else to do but cannot exit  */
     while (1)
@@ -145,6 +145,7 @@ static int sysinit(void)
     ppcb->stkbase = (void *)&_end;
     ppcb->stkptr = NULL;
     ppcb->stklen = (ulong)memheap - (ulong)&_end;
+    ppcb->prjoin =0;
     ppcb->tickets = 1;
     currpid = NULLPROC;
 

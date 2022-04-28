@@ -54,7 +54,7 @@ typedef struct pentry
     void *stkbase;              /**< base of run time stack                  */
     int stklen;                 /**< stack length                            */
     char name[PNMLEN];          /**< process name                            */
-    uint joinq;                 // waiting on the join method
+    uint prjoin;                 // waiting on the join method
     uint tickets;               // ticket variable
 } pcb;
 

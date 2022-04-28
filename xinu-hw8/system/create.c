@@ -115,7 +115,6 @@ syscall create(void *funcaddr, ulong ssize, unsigned int priority, char *name, u
         }
     }
     va_end(ap);
-
  
     return pid;
 }

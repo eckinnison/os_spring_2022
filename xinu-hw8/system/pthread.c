@@ -30,8 +30,8 @@ syscall sc_create(int *args)
      * the PRREADY state.(done)
      */        
 
-    thread = create((void *)start_routine, INITSTK, 5,"Pthread", 1, arg); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
-    ready(create((void *)thread, INITSTK, INITPRIO, "MAIN1", 1, 0, NULL),RESCHED_YES); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
+    thread = create((void *)start_routine, INITSTK, INITPRIO, "Pthread", 1, arg); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
+    ready(thread, RESCHED_YES);
 
     return OK;
 }
@@ -53,14 +53,15 @@ syscall sc_join(int *args)
      * Enqueue it on the JOIN queue of thread's PCB, and
      * yield the processor.
      */
-
+    irqmask pc;
+    pc = disable();
      //this was commented out above is it the answer???
     ASSERT(!isbadpid(thread));
     ppcb = &proctab[currpid];
     ppcb->state = PRJOIN;
     enqueue(currpid, PRJOIN);
     resched();
-
+    restore(pc);
     return OK;
 }
 

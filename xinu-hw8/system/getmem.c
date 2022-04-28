@@ -5,6 +5,7 @@
 /* Embedded Xinu, Copyright (C) 2009, 2020.  All rights reserved. */
 
 #include <xinu.h>
+#define SCARG(type, args) (type)(*args++)
 
 /**
  * Allocate heap memory.
