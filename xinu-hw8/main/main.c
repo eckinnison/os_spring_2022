@@ -27,11 +27,12 @@ typedef struct
 void *mythread(void *arg)
 {
     /* Cast the generic args to be our myarg_t struct */
+    
     myarg_t *args = (myarg_t *) arg;
 
     int i = 0, local = 0;
 
-    //printf("Adding %d to %d\n", args->array[0], args->array[args->length - 1]);
+    kprintf("Adding %d to %d\n", args->array[0], args->array[args->length - 1]);
     for (i = 0; i < args->length; i++)
     {
         pthread_mutex_lock(args->lock);
@@ -50,6 +51,7 @@ void *mythread(void *arg)
 
 int main()
 {
+    kprintf("in main\n");
     int *array = NULL;          /* Array of numbers to add up        */
     long int answer = 0;        /* Answers from each thread          */
     pthread_t threads[THRD_COUNT];      /* PThread objects                   */

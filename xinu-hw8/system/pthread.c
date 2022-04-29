@@ -67,13 +67,14 @@ syscall sc_join(int *args)
 syscall sc_lock(int *args)
 {
     pthread_mutex_t *mutex = SCARG(pthread_mutex_t *, args);
+        kprintf("%08x", mutex);
+
     while (!_atomic_compareAndSwapStrong(mutex, PTHREAD_MUTEX_UNLOCKED, PTHREAD_MUTEX_LOCKED)){
 		resched();
     }
     /**
      * TODO: Use the atomic CAS operation to secure the mutex lock.
      */
-    
     return OK;
 }
 
