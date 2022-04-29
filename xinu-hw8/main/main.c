@@ -51,23 +51,26 @@ void *mythread(void *arg)
 
 int main()
 {
-    kprintf("in main\n");
+   // kprintf("in main\n");
     int *array = NULL;          /* Array of numbers to add up        */
     long int answer = 0;        /* Answers from each thread          */
     pthread_t threads[THRD_COUNT];      /* PThread objects                   */
     myarg_t args[THRD_COUNT];   /* Argument struct, one per thread   */
     int i = 0, rc = 0;
     pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+   // kprintf("in main2\n");
 
     array = (int *)malloc(MAX * sizeof(int));
     if (NULL == array)
         return -1;
+//    kprintf("in main3\n");
 
     /* Initialize data from 1 to MAX  */
     for (i = 0; i < MAX; i++)
     {
         array[i] = i + 1;
     }
+  //  kprintf("in main4\n");
 
     /* Initialize Per-thread argument structs */
     for (i = 0; i < THRD_COUNT; i++)
@@ -79,6 +82,7 @@ int main()
         args[i].answer = &answer;
         args[i].lock = &lock;
     }
+   // kprintf("in main5\n");
 
     /* Create all of the worker threads */
     for (i = 0; i < THRD_COUNT; i++)
@@ -86,6 +90,7 @@ int main()
         rc = pthread_create(threads + i, NULL, mythread, args + i);
         // printf("Spawned thread %d, rc = %d\n", i, rc);
     }
+   // kprintf("in main6\n");
 
     /* Use join() to wait for each thread to complete its work */
     for (i = 0; i < THRD_COUNT; i++)

@@ -25,7 +25,7 @@ extern void ctxsw(void *, void *);
  */
 
 static int random_pick(){
-    pcb *ppcb = NULL;           /* process control block pointer */
+    //pcb *ppcb = NULL;           /* process control block pointer */
     int totaltickets;
     totaltickets=0;
     int i;

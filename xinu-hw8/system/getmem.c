@@ -22,7 +22,7 @@
 
 
 
-void *sc_getmem(ulong nbytes)
+void *sc_getmem(int *args)
 {
     irqmask pc;     // NEW, disable interrupts while a line is being printed
     pc = disable(); // NEW

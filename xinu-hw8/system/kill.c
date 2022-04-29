@@ -21,7 +21,7 @@ syscall kill(int pid)
     {
         return SYSERR;
     }
-    sc_freemem(ppcb, ppcb->stklen);
+    freemem(ppcb, ppcb->stklen);
     ppcb = &proctab[pid];
 
     --numproc;

@@ -28,7 +28,7 @@ syscall sc_create(int *args)
      * the PRREADY state.
      */
      
-    *thread = create(start_routine, INITSTK, INITPRIO,"PThread0", 1, arg); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
+    *thread = create(start_routine, INITSTK, INITPRIO,"PThread", 1, arg); //"treat it as a lone argument passed through to create(), and trust the thread main program to work it out on the other end."
     ready(*thread, RESCHED_YES);
 
     return OK;
@@ -67,7 +67,7 @@ syscall sc_join(int *args)
 syscall sc_lock(int *args)
 {
     pthread_mutex_t *mutex = SCARG(pthread_mutex_t *, args);
-        kprintf("%08x", mutex);
+       // kprintf("%08x", mutex);
 
     while (!_atomic_compareAndSwapStrong(mutex, PTHREAD_MUTEX_UNLOCKED, PTHREAD_MUTEX_LOCKED)){
 		resched();
