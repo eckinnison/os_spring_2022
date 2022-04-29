@@ -54,10 +54,10 @@ void nulluser(void)
     /* Call the main program */
    // ready(create((void *) main, INITSTK, "MAIN", INITPRIO, 2, 0, NULL), 0);
      //   testcases();
-    kprintf("right before main\n");
+   // kprintf("right before main\n");
     ready(create((void *)main, INITSTK, INITPRIO, "MAIN", 2, 0, NULL), 0);
     //main();
-    kprintf("skipping main \n");
+    //kprintf("skipping main \n");
 
     /* null process has nothing else to do but cannot exit  */
     while (1)
