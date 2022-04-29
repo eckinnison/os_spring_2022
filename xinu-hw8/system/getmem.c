@@ -26,12 +26,12 @@ void *sc_getmem(ulong nbytes)
 {
     irqmask pc;     // NEW, disable interrupts while a line is being printed
     pc = disable(); // NEW
-  //  ulong nbytes = SCARG(ulong, args); 
+    ulong nbytes = SCARG(ulong, args); 
 
     register memblk *prev, *curr, *leftover;
     
-    prev = &freelist;
-    curr = freelist.head;    
+   // prev = &freelist;
+    //curr = freelist.head;    
 
     if (0 == nbytes)
     {
@@ -56,6 +56,8 @@ void *sc_getmem(ulong nbytes)
      *      - Restore interrupts(DONE?)
      *      - return memory address if successful
      */
+     prev = &freelist;
+     curr = freelist.head;
 
     while(curr != NULL){
        if(curr->length == nbytes){

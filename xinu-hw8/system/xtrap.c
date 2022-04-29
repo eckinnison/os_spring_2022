@@ -49,18 +49,19 @@ void xtrap(long *frame, int cause)
 	int i;
 	long *ocvar; // Holds opcode variable
         if (cause == ARM_EXCEPTION_SWI){
-                for(int i =0; i <= 16; i++){
+                //for(int i =0; i <= 16; i++){
                        // kprintf("this is the opcode variable of frame[%d]: 0x%08X\r\n", i, frame[i]);
-                }
+                //}
                 opcode= ((long)frame[14]);
                // kprintf("this is ocode of frame[14]: 0x%08X\r\n", *opcode); 
                 swi= (*opcode) & (0xFFFFFF);
                 int* my_args;
-                for(int j=0; j<4;j++){
-                        my_args[j]=frame[j];
-                }
+                //for(int j=0; j<4;j++){
+                  //      my_args[j]=frame[j];
+                //}
                // kprintf("this is ocode of swi: 0x%06X\r\n", swi);
                // kprintf("this is ocode of *swi: 0x%06X\r\n", *swi);
+                frame[14]=frame[14]+4;
                 frame[0]= syscall_dispatch(swi, *my_args);
      /* 3) Decode what system call was requested by examining opcode,
 
@@ -75,7 +76,7 @@ void xtrap(long *frame, int cause)
      * 5) On return from syscall_dispatch(), setup proper return to
      *    instruction after SWI call, with return value in place.
      */
-        frame[14]=frame[14]+4;
+        
         return;
 }
    

@@ -92,7 +92,7 @@ syscall create(void *funcaddr, ulong ssize, unsigned int priority, char *name, u
         {
             *--saddr = 0;
         }
-        saddr[CTX_LR]=&userret; //assigned to LR
+        saddr[CTX_LR]=userret; //assigned to LR
         saddr[CTX_PC]=funcaddr; //assigned to PC
 
         	// TODO: Initialize process context.

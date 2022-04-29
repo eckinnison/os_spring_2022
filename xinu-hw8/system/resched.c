@@ -157,7 +157,7 @@ syscall resched(void)
 #if PREEMPT
     preempt = QUANTUM;
 #endif
-    kprintf("[%d %d]", oldproc-proctab, newproc-proctab);
+    //kprintf("[%d %d]", oldproc-proctab, newproc-proctab);
     ctxsw(&oldproc->stkptr, &newproc->stkptr);
 
     restore(ps);
