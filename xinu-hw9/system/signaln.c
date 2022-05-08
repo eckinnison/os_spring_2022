@@ -33,6 +33,14 @@ syscall signaln(semaphore sem, int count)
         return SYSERR;
     }
 
+    sem = sem + count;
+
+    if(sem < 0){
+        semfree(sem); // Not sure if this is correct
+    }
+
+    //Yield processor
+
     /**
      * TODO: Increment the semaphore 'count' times.
      * If the count was negative, wake waiting threads.

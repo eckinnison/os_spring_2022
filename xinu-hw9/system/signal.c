@@ -30,6 +30,15 @@ syscall signal(semaphore sem)
         return SYSERR;
     }
 
+
+
+    sem = sem + 1;
+
+    if(sem < 0){
+        wait(sem); // Not sure if this is correct
+    }
+
+
     /**
      * TODO: Increment the semaphore count.
      * If the count was negative, wake a waiting thread.

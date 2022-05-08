@@ -36,6 +36,16 @@ syscall wait(semaphore sem)
         return SYSERR;
     }
 
+
+
+
+    sem = sem - 1;
+
+    if(sem < 0){
+        // Put process in PRWAIT state
+        // Wait in semaphore queue
+    }
+
     /**
      * TODO:
      * Decrement the semaphore count.  If it becomes negative,
